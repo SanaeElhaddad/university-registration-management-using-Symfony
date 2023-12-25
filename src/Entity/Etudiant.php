@@ -80,6 +80,9 @@ class Etudiant
     #[ORM\OneToOne(mappedBy: 'etudiantstep2', cascade: ['persist', 'remove'])]
     private ?EtudiantStep2 $etudiantStep2 = null;
 
+    #[ORM\OneToOne(mappedBy: 'E_step3', cascade: ['persist', 'remove'])]
+    private ?EtudiantStep3 $etudiantStep3 = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -350,6 +353,23 @@ public function setDateNaissance(?\DateTimeInterface $date_Naissance): static
         }
 
         $this->etudiantStep2 = $etudiantStep2;
+
+        return $this;
+    }
+
+    public function getEtudiantStep3(): ?EtudiantStep3
+    {
+        return $this->etudiantStep3;
+    }
+
+    public function setEtudiantStep3(EtudiantStep3 $etudiantStep3): static
+    {
+        // set the owning side of the relation if necessary
+        if ($etudiantStep3->getEStep3() !== $this) {
+            $etudiantStep3->setEStep3($this);
+        }
+
+        $this->etudiantStep3 = $etudiantStep3;
 
         return $this;
     }
