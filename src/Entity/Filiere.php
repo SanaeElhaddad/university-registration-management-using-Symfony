@@ -16,9 +16,13 @@ class Filiere
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'filieres')]
-    private ?Faculte $Faculte = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Faculte $faculte = null;
 
-    #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: Etudiant::class)]
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
+    #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: Etudiant::class, orphanRemoval: true)]
     private Collection $etudiants;
 
     public function __construct()
@@ -33,12 +37,24 @@ class Filiere
 
     public function getFaculte(): ?Faculte
     {
-        return $this->Faculte;
+        return $this->faculte;
     }
 
-    public function setFaculte(?Faculte $Faculte): static
+    public function setFaculte(?Faculte $faculte): static
     {
-        $this->Faculte = $Faculte;
+        $this->faculte = $faculte;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }

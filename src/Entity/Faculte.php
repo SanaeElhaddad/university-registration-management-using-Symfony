@@ -15,10 +15,16 @@ class Faculte
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'Faculte', targetEntity: Filiere::class)]
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
+    #[ORM\Column]
+    private ?bool $reconnaissance = null;
+
+    #[ORM\OneToMany(mappedBy: 'faculte', targetEntity: Filiere::class, orphanRemoval: true)]
     private Collection $filieres;
 
-    #[ORM\OneToMany(mappedBy: 'faculte', targetEntity: Responsable::class)]
+    #[ORM\OneToMany(mappedBy: 'faculte', targetEntity: Responsable::class, orphanRemoval: true)]
     private Collection $responsables;
 
     #[ORM\OneToMany(mappedBy: 'faculte', targetEntity: Secretaire::class)]
@@ -34,6 +40,30 @@ class Faculte
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function isReconnaissance(): ?bool
+    {
+        return $this->reconnaissance;
+    }
+
+    public function setReconnaissance(bool $reconnaissance): static
+    {
+        $this->reconnaissance = $reconnaissance;
+
+        return $this;
     }
 
     /**

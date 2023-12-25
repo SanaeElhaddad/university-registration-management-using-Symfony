@@ -14,7 +14,14 @@ class Etudiant
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'etudiants')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Filiere $filiere = null;
+
+    #[ORM\OneToOne(mappedBy: 'etudiant', cascade: ['persist', 'remove'])]
+    private ?Compte $compte = null;
+
+    #[ORM\Column]
+    private ?bool $status = null;
 
     public function getId(): ?int
     {
@@ -29,6 +36,40 @@ class Etudiant
     public function setFiliere(?Filiere $filiere): static
     {
         $this->filiere = $filiere;
+
+        return $this;
+    }
+
+    public function getCompte(): ?Compte
+    {
+        return $this->compte;
+    }
+
+    public function setCompte(?Compte $compte): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($compte === null && $this->compte !== null) {
+            $this->compte->setEtudiant(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($compte !== null && $compte->getEtudiant() !== $this) {
+            $compte->setEtudiant($this);
+        }
+
+        $this->compte = $compte;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }
