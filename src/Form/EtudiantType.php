@@ -10,6 +10,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class EtudiantType extends AbstractType
 {
@@ -39,8 +41,15 @@ class EtudiantType extends AbstractType
             ->add('profession_mere')
             ->add('gsm_mere')
             ->add('gsm_pere')
-            ->add('mot_passe')
-            ->add('Confirm_pass')
+            
+            ->add('mot_passe', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmer le mot de passe'],
+                'invalid_message' => 'Les champs du mot de passe doivent correspondre.',
+            ])
+
+            
            
             ->add('filiere', EntityType::class, [
                 'class' => Filiere::class,

@@ -70,15 +70,24 @@ class Etudiant
 
     #[ORM\Column(length: 255)]
     private ?string $mot_passe = null;
+    private ?string $confirmPass = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Confirm_pass = null;
-
+   
     #[ORM\Column(nullable: true)]
     private ?bool $status = null;
 
     #[ORM\OneToOne(mappedBy: 'etudiantstep2', cascade: ['persist', 'remove'])]
     private ?EtudiantStep2 $etudiantStep2 = null;
+
+    public function getConfirmPass(): ?string
+    {
+        return $this->confirmPass;
+    }
+    public function setConfirmPass(string $confirmPass): void
+    {
+        $this->confirmPass = $confirmPass;
+    }
+    
 
     public function getId(): ?int
     {
@@ -313,17 +322,7 @@ public function setDateNaissance(?\DateTimeInterface $date_Naissance): static
         return $this;
     }
 
-    public function getConfirmPass(): ?string
-    {
-        return $this->Confirm_pass;
-    }
-
-    public function setConfirmPass(string $Confirm_pass): static
-    {
-        $this->Confirm_pass = $Confirm_pass;
-
-        return $this;
-    }
+   
 
     public function isStatus(): ?bool
     {
@@ -353,4 +352,6 @@ public function setDateNaissance(?\DateTimeInterface $date_Naissance): static
 
         return $this;
     }
+
+  
 }
