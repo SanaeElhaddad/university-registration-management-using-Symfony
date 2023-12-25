@@ -22,7 +22,9 @@ class Compte
     #[ORM\Column]
     private ?bool $status = null;
 
+    
     #[ORM\OneToOne(inversedBy: 'compte', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Etudiant $etudiant = null;
 
     public function getId(): ?int

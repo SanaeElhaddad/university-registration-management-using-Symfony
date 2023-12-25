@@ -1,0 +1,16 @@
+{# Assuming this is your Symfony form rendering code #}
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-custom" style="
+        background-color: #001f3f; 
+        color: #fff; /*  text blanc */
+        padding: 9px 60px; 
+        border: none; 
+        border-radius: 8px; 
+        font-size: 15px;
+        transition: background-color 0.3s ease; 
+        
+    ">
+        {{ button_label|default('Save') }}
+    </button>
+{{ form_end(form) }}
