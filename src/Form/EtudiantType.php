@@ -55,8 +55,34 @@ class EtudiantType extends AbstractType
                 'class' => Filiere::class,
 'choice_label' => 'id',
             ])
+             
+            ->add('niveau',ChoiceType::class,[
+                'choices' => [
+                    ''=>'',
+                    '1 ére Année'=>'1 ére Année',
+                    '2 éme Année'=>'2 éme Année',
+                    '3 éme Année'=>'2 éme Année',
+                    '4 éme Année'=>'2 éme Année',
+                    '5 éme Année'=>'5 éme Année',
+
+                ],
+               
+                ])
+            ->add('note_math')
+            ->add('note_franc')
             
+        
+        ->add('note_6eme')
+        ->add('note_bac')
+        ->add('Attestation_reussite')
+        ->add('carte_nationale')
+        ->add('Attestation_reussite1')
+        ->add('Attestation_reussite2')
+        ->add('licence')
+        ->add('Attestation_reussite4')
+        
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

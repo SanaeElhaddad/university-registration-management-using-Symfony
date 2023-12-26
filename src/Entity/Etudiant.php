@@ -93,6 +93,39 @@ class Etudiant
     #[ORM\OneToOne(mappedBy: 'E_step3', cascade: ['persist', 'remove'])]
     private ?EtudiantStep3 $etudiantStep3 = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $niveau = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $note_math = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $note_franc = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $note_6eme = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $note_bac = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Attestation_reussite = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $carte_nationale = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Attestation_reussite1 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Attestation_reussite2 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $licence = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Attestation_reussite4 = null;
+
 
     public function getId(): ?int
     {
@@ -372,6 +405,138 @@ public function setDateNaissance(?\DateTimeInterface $date_Naissance): static
         }
 
         $this->etudiantStep3 = $etudiantStep3;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?string
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(string $niveau): static
+    {
+        $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    public function getNoteMath(): ?string
+    {
+        return $this->note_math;
+    }
+
+    public function setNoteMath(string $note_math): static
+    {
+        $this->note_math = $note_math;
+
+        return $this;
+    }
+
+    public function getNoteFranc(): ?string
+    {
+        return $this->note_franc;
+    }
+
+    public function setNoteFranc(string $note_franc): static
+    {
+        $this->note_franc = $note_franc;
+
+        return $this;
+    }
+
+    public function getNote6eme(): ?string
+    {
+        return $this->note_6eme;
+    }
+
+    public function setNote6eme(string $note_6eme): static
+    {
+        $this->note_6eme = $note_6eme;
+
+        return $this;
+    }
+
+    public function getNoteBac(): ?string
+    {
+        return $this->note_bac;
+    }
+
+    public function setNoteBac(string $note_bac): static
+    {
+        $this->note_bac = $note_bac;
+
+        return $this;
+    }
+
+    public function getAttestationReussite(): ?string
+    {
+        return $this->Attestation_reussite;
+    }
+
+    public function setAttestationReussite(string $Attestation_reussite): static
+    {
+        $this->Attestation_reussite = $Attestation_reussite;
+
+        return $this;
+    }
+
+    public function getCarteNationale(): ?string
+    {
+        return $this->carte_nationale;
+    }
+
+    public function setCarteNationale(string $carte_nationale): static
+    {
+        $this->carte_nationale = $carte_nationale;
+
+        return $this;
+    }
+
+    public function getAttestationReussite1(): ?string
+    {
+        return $this->Attestation_reussite1;
+    }
+
+    public function setAttestationReussite1(?string $Attestation_reussite1): static
+    {
+        $this->Attestation_reussite1 = $Attestation_reussite1;
+
+        return $this;
+    }
+
+    public function getAttestationReussite2(): ?string
+    {
+        return $this->Attestation_reussite2;
+    }
+
+    public function setAttestationReussite2(?string $Attestation_reussite2): static
+    {
+        $this->Attestation_reussite2 = $Attestation_reussite2;
+
+        return $this;
+    }
+
+    public function getLicence(): ?string
+    {
+        return $this->licence;
+    }
+
+    public function setLicence(?string $licence): static
+    {
+        $this->licence = $licence;
+
+        return $this;
+    }
+
+    public function getAttestationReussite4(): ?string
+    {
+        return $this->Attestation_reussite4;
+    }
+
+    public function setAttestationReussite4(?string $Attestation_reussite4): static
+    {
+        $this->Attestation_reussite4 = $Attestation_reussite4;
 
         return $this;
     }

@@ -103,10 +103,16 @@
         <div class="auth_left">
             <div class="card">
                 <div class="card-body">
-                    
-                          {{ include('step3/_form.html.twig') }}
+                     {{ include('step3/_form.html.twig') }}
+                          
                     <form>
-                     
+                     {#% if etudiant_step2.niveau=='1 ére Année'%}
+                       {{ include('step3/_form.html.twig') }}
+                     {% else if   etudiant_step2.niveau=='2 éme Année'%}
+                     {% else if   etudiant_step2.niveau=='2 éme Année'%}
+
+    
+                     {% endif %#}
                      
                     </form>
                 </div>
