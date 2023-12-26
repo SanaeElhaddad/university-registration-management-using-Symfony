@@ -6,6 +6,7 @@ use App\Entity\Compte;
 use App\Entity\Etudiant;
 use App\Entity\Filiere;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -74,12 +75,32 @@ class EtudiantType extends AbstractType
         
         ->add('note_6eme')
         ->add('note_bac')
-        ->add('Attestation_reussite')
-        ->add('carte_nationale')
-        ->add('Attestation_reussite1')
-        ->add('Attestation_reussite2')
-        ->add('licence')
-        ->add('Attestation_reussite4')
+        ->add('Attestation_reussite', FileType::class, [
+            'label' => 'Attestation de Réussite ',
+            'required' => false, // Set to true if the file is mandatory
+        ])
+        ->add('carte_nationale', FileType::class, [
+            'label' => 'carte_nationale',
+            'required' => false, // Set to true if the file is mandatory
+        ])
+        ->add('Attestation_reussite1', FileType::class, [
+            'label' => 'Attestation de Réussite 1',
+            'required' => false, // Set to true if the file is mandatory
+        ])
+        ->add('Attestation_reussite2', FileType::class, [
+            'label' => 'Attestation de Réussite 2',
+            'required' => false, // Set to true if the file is mandatory
+        ])
+        ->add('Attestation_reussite4', FileType::class, [
+            'label' => 'Attestation de Réussite 4',
+            'required' => false, // Set to true if the file is mandatory
+        ])
+        ->add('licence', FileType::class, [
+            'label' => 'licence',
+            'required' => false, // Set to true if the file is mandatory
+        ])
+        
+       
         
         ;
 
