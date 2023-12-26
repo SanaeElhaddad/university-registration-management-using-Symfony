@@ -78,31 +78,39 @@ class EtudiantType extends AbstractType
         ->add('Attestation_reussite', FileType::class, [
             'label' => 'Attestation de Réussite ',
             'required' => false, // Set to true if the file is mandatory
+            'attr' => ['class' => 'form-control'],
         ])
         ->add('carte_nationale', FileType::class, [
             'label' => 'carte_nationale',
             'required' => false, // Set to true if the file is mandatory
+            'attr' => ['class' => 'form-control'],
         ])
         ->add('Attestation_reussite1', FileType::class, [
             'label' => 'Attestation de Réussite 1',
             'required' => false, // Set to true if the file is mandatory
+            'attr' => ['class' => 'form-control'],
+            
         ])
         ->add('Attestation_reussite2', FileType::class, [
             'label' => 'Attestation de Réussite 2',
             'required' => false, // Set to true if the file is mandatory
+            'attr' => ['class' => 'form-control'],
         ])
         ->add('Attestation_reussite4', FileType::class, [
             'label' => 'Attestation de Réussite 4',
             'required' => false, // Set to true if the file is mandatory
+            'attr' => ['class' => 'form-control'],
         ])
         ->add('licence', FileType::class, [
             'label' => 'licence',
             'required' => false, // Set to true if the file is mandatory
+            'attr' => ['class' => 'form-control'],
         ])
         
        
         
         ;
+        
 
     }
 
