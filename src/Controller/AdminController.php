@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdminController extends AbstractController
 {
@@ -24,14 +25,16 @@ class AdminController extends AbstractController
     private $filiereRepository;
     private $responsableRepository;
     private $secretaireRepository;
+    Private $passwordHash ;
 
-    public function __construct(SecretaireRepository $secretaireRepository,ResponsableRepository $responsableRepository,FaculteRepository $faculteRepository,FiliereRepository $filiereRepository, ManagerRegistry $doctrine)
+    public function __construct(UserPasswordHasherInterface $passwordHash,SecretaireRepository $secretaireRepository,ResponsableRepository $responsableRepository,FaculteRepository $faculteRepository,FiliereRepository $filiereRepository, ManagerRegistry $doctrine)
     {
         
         $this->faculteRepository = $faculteRepository;
         $this->filiereRepository = $filiereRepository;
         $this->responsableRepository = $responsableRepository;
         $this->secretaireRepository = $secretaireRepository;
+        $this->passwordHash = $passwordHash;
         $this->entityManager = $doctrine->getManager();
     }
 
@@ -86,7 +89,10 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $faculte = $form->getData();
+            $responsable = $form->getData();
+
+            $hashPassword = $this->passwordHash->hashPassword($responsable,$responsable->getPassword());
+            $responsable->setPassword($hashPassword);
             
             if($request->files->get('responsable')['image']){
                 $image = $request->files->get('responsable')['image'];

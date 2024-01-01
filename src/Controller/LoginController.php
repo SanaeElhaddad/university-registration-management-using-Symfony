@@ -47,11 +47,11 @@ class LoginController extends AbstractController
             // If Admin authentication fails, try to find a Responsable
             $responsable = $entityManager->getRepository(Responsable::class)->findOneBy(['email' => $email]);
 
-           if ($responsable && $responsable->getPassword() === $password) {
-            $token = new UsernamePasswordToken($responsable, $responsable->getPassword(), ['ROLE_RESPONSABLE']);
-            $this->tokenStorage->setToken($token);
+            if ($responsable && $passwordHash->isPasswordValid($responsable, $password)) {
+                $token = new UsernamePasswordToken($responsable, $responsable->getPassword(), $responsable->getRoles());
+                $this->tokenStorage->setToken($token);
 
-            return $this->redirectToRoute('home_responsable');
+                return $this->redirectToRoute('home_responsable');
             } else {
                 $this->addFlash('error', 'Email ou mot de passe incorrect.');
             }

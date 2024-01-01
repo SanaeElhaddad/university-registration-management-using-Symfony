@@ -21,14 +21,17 @@ class ResponsableType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('email')
-            ->add('password',PasswordType::class)
-            ->add('image',FileType::class,[
+            ->add('password', PasswordType::class)
+            ->add('image', FileType::class, [
                 'required' => false,
-                'mapped' => false
+                'mapped' => false,
+                'attr' => [
+                'class' => 'dropify',
+                ],
             ])
             ->add('faculte', EntityType::class, [
                 'class' => Faculte::class,
-'choice_label' => 'id',
+                'choice_label' => 'nom',
             ])
             ->add('Ajouter', SubmitType::class);
         ;

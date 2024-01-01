@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\ResponsableRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ResponsableRepository::class)]
-class Responsable
+class Responsable implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -123,4 +125,18 @@ class Responsable
 
         return $this;
     }
+    public function getRoles(): array
+    {
+        return ['ROLE_Responsable'];
+    }
+    public function eraseCredentials()
+    {
+
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
 }

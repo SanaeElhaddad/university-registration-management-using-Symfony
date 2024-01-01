@@ -7,123 +7,113 @@
 
 {% block body %}
 
-    
-        <div class="section-body">
-            <div class="container-fluid">
-                <div class="d-flex justify-content-between align-items-center ">
-                    <ul class="nav nav-tabs page-header-tab">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Staff-all">List View</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Staff-add">Add</a></li>
-                    </ul>
+<div class="section-body">
+
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center ">
+            <ul class="nav nav-tabs page-header-tab">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Staff-all">List View</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Staff-add">Add</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section-body mt-4">
+    <div class="container-fluid">
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="Staff-all">
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-vcenter text-nowrap table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Faculte Nom</th>
+                                    <th>CNIE</th>
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>Image</th>
+                                    <th>Email</th>
+                                    <th>Password</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for responsable in responsables %}
+                                    <tr>
+                                        <td>{{ responsable.id }}</td>
+                                        <td>{{ responsable.faculte.nom }}</td>
+                                        <td>{{ responsable.cin }}</td>
+                                        <td>{{ responsable.nom }}</td>
+                                        <td>{{ responsable.prenom }}</td>
+                                        <td>
+                                            {% if responsable.image %}
+                                                <img src="{{ asset('uploads/' ~ responsable.image) }}" alt="Image Responsable" style="max-width: 50px;">
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ responsable.email }}</td>
+                                        <td>{{ responsable.password }}</td>
+                                        <td>
+                                            <a href="" class="btn btn-sm btn-success">Éditer</a>
+                                            <a href="" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce responsable ?')">Supprimer</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="section-body mt-4">
-            <div class="container-fluid">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="Staff-all">
+
+            <div class="tab-pane" id="Staff-add">
+                <div class="row clearfix">
+                    <div class="col-lg-8 col-md-12 col-sm-12">
                         <div class="card">
-                            <div class="table-responsive">
-            
-                                <table class="table table-hover table-vcenter text-nowrap table-striped mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>id</th>
-                                            <th>Faculte Nom</th>
-                                            <th>CNIE</th>
-                                            <th>Nom</th>
-                                            <th>Prenom</th>
-                                            <th>Image</th>
-                                            <th>Email</th>
-                                            <th>Password</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for responsable in responsables %}
-                                            <tr>
-                                                <td>{{ responsable.id }}</td>
-                                                <td>{{ responsable.faculte.nom }}</td>
-                                                <td>{{ responsable.cin }}</td>
-                                                <td>{{ responsable.nom }}</td>
-                                                <td>{{ responsable.prenom }}</td>
-                                                <td>
-                                                    {% if responsable.image %}
-                                                        <img src="{{ asset('uploads/' ~ responsable.image) }}" alt="Image Responsable" style="max-width: 50px;">
-                                                    {% else %}
-                                                        Aucune image
-                                                    {% endif %}
-                                                </td>
-                                                <td>{{ responsable.email }}</td>
-                                                <td>{{ responsable.password }}</td>
-                                                <td>
-                                                    <a href="" class="btn btn-sm btn-success">
-                                                        Éditer
-                                                    </a>
-                                                    <a href="" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce responsable ?')">
-                                                        Supprimer
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-
+                            <div class="card-header">
+                                <h3 class="card-title">ACCOUNT INFORMATION</h3>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="Staff-add">
-                        <div class="row clearfix">
-                            <div class="col-lg-8 col-md-12 col-sm-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">ACCOUNT INFORMATION</h3>
+                            <div class="card-body">
+                                {{ form_start(form) }}
+                                    <div class="row clearfix">
+                                        <div class="col-md-6 col-sm-12">
+                                            {{ form_label(form.cin) }}
+                                            {{ form_widget(form.cin, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            {{ form_label(form.nom) }}
+                                            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            {{ form_label(form.prenom) }}
+                                            {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            {{ form_label(form.email) }}
+                                            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            {{ form_label(form.password) }}
+                                            {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            {{ form_label(form.image) }}
+                                            {{ form_widget(form.image, {'attr': {'class': 'dropify'}}) }}
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            {{ form_label(form.faculte) }}
+                                            {{ form_widget(form.faculte, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="col-sm-12">
+                                            {{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-primary'}}) }}
+                                        </div>
                                     </div>
-                                <div class="card-body">
-                        <!-- Symfony Form Start -->
-                        {{ form_start(form) }}
-
-                        <div class="row clearfix">
-                            <div class="col-md-6 col-sm-12">
-                                {{ form_label(form.cin) }}
-                                {{ form_widget(form.cin, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                {{ form_label(form.nom) }}
-                                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                {{ form_label(form.prenom) }}
-                                {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                {{ form_label(form.email) }}
-                                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                {{ form_label(form.password) }}
-                                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                {{ form_label(form.image) }}
-                                {{ form_widget(form.image, {'attr': {'class': 'dropify'}}) }}
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                {{ form_label(form.faculte) }}
-                                {{ form_widget(form.faculte, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            <div class="col-sm-12">
-                                {{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-primary'}}) }}
+                                {{ form_end(form) }}
                             </div>
                         </div>
-
-                        <!-- Symfony Form End -->
-                        {{ form_end(form) }}
                     </div>
                 </div>
-            </div>
-        </div>
 
 {% endblock %}
 
