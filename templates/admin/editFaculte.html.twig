@@ -1,0 +1,46 @@
+{% extends 'admin/base.html.twig' %}
+
+
+{% block title %}Faculte{% endblock %}
+   
+
+{% block body %}
+
+<div class="section-body mt-4">
+    <div class="container-fluid">
+        <div class="tab-content">
+            <div class="tab-pane active" id="Dep-add-Boot">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Edit Faculte</h3>
+                            </div>
+                        <div class="card-body">
+                       {{ form_start(form) }}
+                            <div class="form-group row">
+                            {{ form_label(form.nom, 'Faculty Name', {'label_attr': {'class': 'col-md-3 col-form-label'}}) }}
+                            <div class="col-md-7">
+                                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            </div>
+                            <div class="form-group row">
+                            {{ form_label(form.reconnaissance, 'Accreditation', {'label_attr': {'class': 'col-md-3 col-form-label'}}) }}
+                            <div class="col-md-7">
+                                {{ form_widget(form.reconnaissance, {'attr': {'class': 'form-check-input', 'id': 'accreditationCheckbox'}}) }}
+                                {{ form_label(form.reconnaissance, 'Accredited', {'label_attr': {'for': 'accreditationCheckbox'}}) }}
+                            </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label"></label>
+                                <div class="col-md-7">
+                                    {{ form_widget(form.Submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

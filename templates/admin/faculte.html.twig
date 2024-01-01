@@ -1,0 +1,105 @@
+{% extends 'admin/base.html.twig' %}
+
+
+{% block title %}Faculte{% endblock %}
+   
+
+{% block body %}
+
+<div class="section-body">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center ">
+            <ul class="nav nav-tabs page-header-tab">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Dep-all">List Faculte</a></li>
+                <li class="nav-item"><a class="nav-link" id="Dep-tab-Boot" data-toggle="tab" href="#Dep-add-Boot">Add Faculte</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section-body mt-4">
+    <div class="container-fluid">
+        <div class="tab-content">
+      
+            <div class="tab-pane active" id="Dep-all">
+                <div class="table-responsive">
+                    <div class="table-responsive card">
+                        <table class="table table-hover table-striped table-vcenter text-nowrap mb-0">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Name of Faculte</th>
+                                    <th>reconnaissance</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                            {% for faculte in facultes %}
+                                <tr>
+                                    <td>{{ faculte.id }}</td>
+                                    <td>{{ faculte.nom}}</td>
+                                    <td>
+                                        <span class="{{ faculte.reconnaissance ? 'tag tag-success' : 'tag tag-warning' }}">
+                                        {{ faculte.reconnaissance ? 'Reconnaissance' : 'Reconnaissance' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('faculte_edit', {'id': faculte.id}) }}" class="btn btn-icon btn-sm" title="Edit">
+                                        <i class="fa fa-edit"></i> </a>                                      
+                                        <a href="{{ path('faculte_delete', {'id': faculte.id}) }}" class="btn btn-icon btn-sm js-sweetalert" title="Delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')">
+                                        <i class="fa fa-trash-o text-danger"></i></a>                                   
+                                    </td>
+                                </tr>
+                                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>  
+                </div>
+
+            </div>
+
+
+
+
+
+
+            <div class="tab-pane" id="Dep-add-Boot">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Add Faculte</h3>
+                            </div>
+                        <div class="card-body">
+                        
+                        {{ form_start(form) }}
+
+                            <div class="form-group row">
+                                {{ form_label(form.nom, 'Faculty Name', {'label_attr': {'class': 'col-md-3 col-form-label'}}) }}
+                                <div class="col-md-7">
+                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                {{ form_label(form.reconnaissance, 'Accreditation', {'label_attr': {'class': 'col-md-3 col-form-label'}}) }}
+                                <div class="col-md-7">
+                                    {{ form_widget(form.reconnaissance, {'attr': {'class': 'form-check-input', 'id': 'accreditationCheckbox'}}) }}
+                                    {{ form_label(form.reconnaissance, 'Accredited', {'label_attr': {'for': 'accreditationCheckbox'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label"></label>
+                                <div class="col-md-7">
+                                    {{ form_widget(form.Submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                                </div>
+                            </div>
+
+                        {{ form_end(form) }}
+                    
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
