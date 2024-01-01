@@ -46,10 +46,17 @@ class AdminController extends AbstractController
     #[Route('/admin', name: 'home_admin')]
     public function index(): Response
     {
-        $admin = $this->getUser();
+        $facultes = $this->faculteRepository->findAll();
+        $filieres = $this->filiereRepository->findAll();
+        $secretaire = $this->secretaireRepository->findAll();
+        $responsables = $this->responsableRepository->findAll();
+
 
           return $this->render('admin/index.html.twig', [
-            'admin' => $admin,
+            'facultes' => $facultes,
+            'filieres' => $filieres,
+            'secretaires' => $secretaire,
+            'responsables' => $responsables
          ]);
     }
 
