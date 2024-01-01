@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class AdminController extends AbstractController
 {
@@ -144,6 +145,54 @@ class AdminController extends AbstractController
         }
     
         return $this->renderForm('admin/editFaculte.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/admin/responsableDelete/{id}', name: 'responsable_delete')]
+    public function deleteResponsable($id): Response
+    {
+   
+        $responsable = $this->entityManager->getRepository(Responsable::class)->find($id);
+        $fileSystem = new Filesystem();
+        $imagePath = './uploads/' . $responsable->getImage();
+        if ($fileSystem->exists($imagePath)) {
+            $fileSystem->remove($imagePath);
+        }
+    
+        $this->entityManager->remove($responsable);
+        $this->entityManager->flush();
+            
+        return $this->redirectToRoute('admin_responsable');
+    }
+
+    #[Route('/admin/editResponsable/{id}', name: 'responsable_edit')]
+    public function editResponsable(Request $request, $id): Response
+    {
+
+        $responsable = $this->entityManager->getRepository(Responsable::class)->find($id);
+
+        $form = $this->createForm(ResponsableType::class, $responsable);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $responsable = $form->getData();
+            $hashPassword = $this->passwordHash->hashPassword($responsable,$responsable->getPassword());
+            $responsable->setPassword($hashPassword);
+            if ($request->files->get('responsable')['image']) {
+                $image = $request->files->get('responsable')['image'];
+                $image_name = time() . '_' . $image->getClientOriginalName();
+                $image->move($this->getParameter('image_directory'), $image_name);
+                $responsable->setImage($image_name);
+            }
+            $this->entityManager->persist($responsable);
+            $this->entityManager->flush();
+    
+    
+            return $this->redirectToRoute('admin_responsable');
+        }
+    
+        return $this->renderForm('admin/editResponsable.html.twig', [
             'form' => $form,
         ]);
     }

@@ -33,7 +33,7 @@ class ResponsableType extends AbstractType
                 'class' => Faculte::class,
                 'choice_label' => 'nom',
             ])
-            ->add('Ajouter', SubmitType::class);
+            ->add('Submit', SubmitType::class);
         ;
     }
 
