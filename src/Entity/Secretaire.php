@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\SecretaireRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: SecretaireRepository::class)]
-class Secretaire
+class Secretaire implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -122,5 +124,18 @@ class Secretaire
         $this->image = $image;
 
         return $this;
+    }
+    public function getRoles(): array
+    {
+        return ['ROLE_Secretaire'];
+    }
+    public function eraseCredentials()
+    {
+
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 }

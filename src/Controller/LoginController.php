@@ -13,7 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\Responsable;
-
+use App\Entity\Secretaire;
 
 class LoginController extends AbstractController
 {
@@ -52,6 +52,15 @@ class LoginController extends AbstractController
                 $this->tokenStorage->setToken($token);
 
                 return $this->redirectToRoute('home_responsable');
+            }
+            // If Admin authentication fails, try to find a Responsable
+            $secretaire = $entityManager->getRepository(Secretaire::class)->findOneBy(['email' => $email]);
+
+            if ($secretaire && $passwordHash->isPasswordValid($secretaire, $password)) {
+                $token = new UsernamePasswordToken($secretaire, $secretaire->getPassword(), $secretaire->getRoles());
+                $this->tokenStorage->setToken($token);
+
+                return $this->redirectToRoute('home_secretaire');
             } else {
                 $this->addFlash('error', 'Email ou mot de passe incorrect.');
             }

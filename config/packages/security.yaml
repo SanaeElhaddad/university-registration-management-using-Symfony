@@ -5,6 +5,8 @@ security:
             algorithm: bcrypt
         App\Entity\Responsable:
             algorithm: bcrypt
+        App\Entity\Secretaire:
+            algorithm: bcrypt
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         admin_provider:

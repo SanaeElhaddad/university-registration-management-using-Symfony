@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Faculte;
+use App\Entity\Filiere;
 use App\Entity\Responsable;
+use App\Entity\Secretaire;
 use App\Form\FaculteType;
+use App\Form\FiliereType;
 use App\Form\ResponsableType;
+use App\Form\SecretaireType;
 use App\Repository\FaculteRepository;
 use App\Repository\FiliereRepository;
 use App\Repository\ResponsableRepository;
@@ -196,4 +200,150 @@ class AdminController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/admin/filiere', name: 'admin_Filiere')]
+    public function filiere(Request $request): Response
+    {
+        $filieres = $this->filiereRepository->findAll();
+    
+        $filiere = new Filiere();
+        
+        $form = $this->createForm(FiliereType::class, $filiere);
+    
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $filiere = $form->getData();
+            $this->entityManager->persist($filiere);
+            $this->entityManager->flush();
+    
+            return $this->redirectToRoute('admin_Filiere');
+        }
+    
+        return $this->render('admin/filiere.html.twig', [
+            'filieres' => $filieres,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/admin/filiereDelete/{id}', name: 'filiere_delete')]
+    public function deleteFiliere($id): Response
+    {        
+        $filiere = $this->entityManager->getRepository(Filiere::class)->find($id);
+        
+        $this->entityManager->remove($filiere);
+        $this->entityManager->flush();
+            
+        return $this->redirectToRoute('admin_Filiere');
+    }
+
+    #[Route('/admin/editFiliere/{id}', name: 'filiere_edit')]
+    public function editFiliere(Request $request, $id): Response
+    {
+        
+        $filiere = $this->entityManager->getRepository(Filiere::class)->find($id);
+    
+    
+        $form = $this->createForm(FiliereType::class, $filiere);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $filiere = $form->getData();
+
+            $this->entityManager->persist($filiere);
+            $this->entityManager->flush();
+    
+    
+            return $this->redirectToRoute('admin_Filiere');
+        }
+    
+        return $this->renderForm('admin/editFiliere.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/admin/secretaire', name: 'admin_secretaire')]
+    public function Secretaire(Request $request): Response
+    {
+
+        $secretaire = new Secretaire();
+        
+        $form = $this->createForm(SecretaireType::class, $secretaire);
+    
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $secretaire = $form->getData();
+
+            $hashPassword = $this->passwordHash->hashPassword($secretaire,$secretaire->getPassword());
+            $secretaire->setPassword($hashPassword);
+            
+            if($request->files->get('secretaire')['image']){
+                $image = $request->files->get('secretaire')['image'];
+                $image_name= time().'_' . $image->getClientOriginalName();
+                $image->move($this->getParameter('image_directory'),$image_name);
+                $secretaire->setImage($image_name);
+            } 
+            $this->entityManager->persist($secretaire);
+            $this->entityManager->flush();
+    
+            return $this->redirectToRoute('admin_secretaire');
+        }
+        $secretaires = $this->secretaireRepository->findAll();
+        return $this->render('admin/secretaire.html.twig', [
+            'secretaires' => $secretaires,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/admin/secretaireDelete/{id}', name: 'secretaire_delete')]
+    public function deleteSecretaire($id): Response
+    {
+   
+        $secretaire = $this->entityManager->getRepository(Secretaire::class)->find($id);
+        $fileSystem = new Filesystem();
+        $imagePath = './uploads/' . $secretaire->getImage();
+        if ($fileSystem->exists($imagePath)) {
+            $fileSystem->remove($imagePath);
+        }
+    
+        $this->entityManager->remove($secretaire);
+        $this->entityManager->flush();
+            
+        return $this->redirectToRoute('admin_secretaire');
+    }
+
+    #[Route('/admin/editSecretaire/{id}', name: 'secretaire_edit')]
+    public function editSecretaire(Request $request, $id): Response
+    {
+
+        $secretaire = $this->entityManager->getRepository(Secretaire::class)->find($id);
+
+        $form = $this->createForm(SecretaireType::class, $secretaire);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $secretaire = $form->getData();
+            $hashPassword = $this->passwordHash->hashPassword($secretaire,$secretaire->getPassword());
+            $secretaire->setPassword($hashPassword);
+            if ($request->files->get('secretaire')['image']) {
+                $image = $request->files->get('secretaire')['image'];
+                $image_name = time() . '_' . $image->getClientOriginalName();
+                $image->move($this->getParameter('image_directory'), $image_name);
+                $secretaire->setImage($image_name);
+            }
+            $this->entityManager->persist($secretaire);
+            $this->entityManager->flush();
+    
+    
+            return $this->redirectToRoute('admin_secretaire');
+        }
+    
+        return $this->renderForm('admin/editSecretaire.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+
+
 }
