@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert/sweetalert.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.css') }}">
 {% endblock %}
 
 <body class="font-muli theme-cyan gradient">
@@ -168,51 +169,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body top_counter">
-                        <div class="icon bg-azure"><i class="fa fa-tags"></i> </div>
-                        <div class="content">
-                            <span>Total Courses</span>
-                            <h5 class="number mb-0">31</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body top_counter">
-                        <div class="icon bg-pink"><i class="fa fa-credit-card"></i> </div>
-                        <div class="content">
-                            <span>Expense</span>
-                            <h5 class="number mb-0">$7,254</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body top_counter">
-                        <div class="icon bg-green"><i class="fa fa-bank"></i> </div>
-                        <div class="content">
-                            <span>Total Income</span>
-                            <h5 class="number mb-0">$27,852</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body top_counter">
-                        <div class="icon bg-cyan"><i class="fa fa-map-o"></i> </div>
-                        <div class="content">
-                            <span>Our Center</span>
-                            <h5 class="number mb-0">52</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body top_counter">
-                        <div class="icon bg-indigo"><i class="fa fa-smile-o"></i> </div>
-                        <div class="content">
-                            <span>Smiley Face</span>
-                            <h5 class="number mb-0">10K</h5>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         </div>
@@ -229,9 +185,9 @@
                                     </div>
                                     <div class="dropdown d-flex">
                                         <a href="javascript:void(0)" class="chip ml-3" data-toggle="dropdown">
-                                            <span class="avatar" style="image"></span> Admin</a>
+                                            <span class="avatar" style="background-image: url('{{ asset('uploads/' ~ app.user.image) }}')"></span> {{ app.user.nom }}</a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href=""><i class="dropdown-icon fe fe-user"></i> Profile</a>
+                                            <a class="dropdown-item" href="{{path('profil_admin')}}"><i class="dropdown-icon fe fe-user"></i> Profile</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{path('app_logout')}}"><i class="dropdown-icon fe fe-log-out"></i> Sign out</a>
                                         </div>
@@ -268,9 +224,12 @@
     <script src="{{ asset('assets/plugins/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/js/page/dialogs.js') }}"></script>
-    
     <script src="{{ asset('assets/js/form/dropify.js') }}"></script>
     <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
+    <script src="{{ asset('bundles/fullcalendar.bundle.js') }}"></script>
+    <script src="{{ asset('bundles/knobjs.bundle.js') }}"></script>
+    <script src="{{ asset('js/page/calendar.js') }}"></script>
+    <script src="{{ asset('js/chart/knobjs.js') }}"></script>
 {% endblock %}
 
 

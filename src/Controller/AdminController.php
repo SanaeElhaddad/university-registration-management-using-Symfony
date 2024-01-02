@@ -6,10 +6,12 @@ use App\Entity\Faculte;
 use App\Entity\Filiere;
 use App\Entity\Responsable;
 use App\Entity\Secretaire;
+use App\Form\AdminType;
 use App\Form\FaculteType;
 use App\Form\FiliereType;
 use App\Form\ResponsableType;
 use App\Form\SecretaireType;
+use App\Repository\AdminRepository;
 use App\Repository\FaculteRepository;
 use App\Repository\FiliereRepository;
 use App\Repository\ResponsableRepository;
@@ -22,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AdminController extends AbstractController
 {
@@ -30,17 +33,25 @@ class AdminController extends AbstractController
     private $filiereRepository;
     private $responsableRepository;
     private $secretaireRepository;
-    Private $passwordHash ;
+    private $adminRepository;
+    Private $passwordHash;
 
-    public function __construct(UserPasswordHasherInterface $passwordHash,SecretaireRepository $secretaireRepository,ResponsableRepository $responsableRepository,FaculteRepository $faculteRepository,FiliereRepository $filiereRepository, ManagerRegistry $doctrine)
+
+    public function __construct(UserPasswordHasherInterface $passwordHash,AdminRepository $adminRepository,SecretaireRepository $secretaireRepository,ResponsableRepository $responsableRepository,FaculteRepository $faculteRepository,FiliereRepository $filiereRepository, ManagerRegistry $doctrine)
     {
         
         $this->faculteRepository = $faculteRepository;
         $this->filiereRepository = $filiereRepository;
         $this->responsableRepository = $responsableRepository;
         $this->secretaireRepository = $secretaireRepository;
+        $this->adminRepository = $adminRepository;
         $this->passwordHash = $passwordHash;
         $this->entityManager = $doctrine->getManager();
+    }
+
+    #[Route('/', name: 'app_logout')]
+    public function deconnexionAction(){
+        return $this->render('admin/index.html.twig');
     }
 
     #[Route('/admin', name: 'home_admin')]
@@ -60,9 +71,28 @@ class AdminController extends AbstractController
          ]);
     }
 
-    #[Route('/', name: 'app_logout')]
-    public function deconnexionAction(){
-        return $this->render('admin/index.html.twig');
+    #[Route('/adminProfil', name: 'profil_admin')]
+    public function Profil(Request $request): Response
+    {
+        $admin = $this->adminRepository->findSingleAdmin();
+        $form = $this->createForm(AdminType::class, $admin);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+        $imageFile = $form->get('image')->getData();
+
+        if ($imageFile instanceof UploadedFile) {
+            $newFilename = 'profilAdmin.'.$imageFile->guessExtension();
+            $imageFile->move($this->getParameter('kernel.project_dir') . '/public/uploads', $newFilename);
+            $admin->setImage($newFilename);
+        }
+            $this->entityManager->persist($admin);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('home_admin');
+        }
+        return $this->render('admin/profil.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/admin/faculte', name: 'admin_Faculte')]
