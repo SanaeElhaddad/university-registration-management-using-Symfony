@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EtudiantStep3 index{% endblock %}
+
+{% block body %}
+    <h1>EtudiantStep3 index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Note_6eme</th>
+                <th>Note_bac</th>
+                <th>Attestation_reussite</th>
+                <th>Carte_nationale</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for etudiant_step3 in etudiant_step3s %}
+            <tr>
+                <td>{{ etudiant_step3.id }}</td>
+                <td>{{ etudiant_step3.note6eme }}</td>
+                <td>{{ etudiant_step3.noteBac }}</td>
+                <td>{{ etudiant_step3.AttestationReussite }}</td>
+                <td>{{ etudiant_step3.carteNationale }}</td>
+                <td>
+                    <a href="{{ path('app_step3_show', {'id': etudiant_step3.id}) }}">show</a>
+                    <a href="{{ path('app_step3_edit', {'id': etudiant_step3.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_step3_new') }}">Create new</a>
+{% endblock %}

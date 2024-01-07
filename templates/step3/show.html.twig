@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EtudiantStep3{% endblock %}
+
+{% block body %}
+    <h1>EtudiantStep3</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ etudiant_step3.id }}</td>
+            </tr>
+            <tr>
+                <th>Note_6eme</th>
+                <td>{{ etudiant_step3.note6eme }}</td>
+            </tr>
+            <tr>
+                <th>Note_bac</th>
+                <td>{{ etudiant_step3.noteBac }}</td>
+            </tr>
+            <tr>
+                <th>Attestation_reussite</th>
+                <td>{{ etudiant_step3.AttestationReussite }}</td>
+            </tr>
+            <tr>
+                <th>Carte_nationale</th>
+                <td>{{ etudiant_step3.carteNationale }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_step3_index') }}">back to list</a>
+
+    <a href="{{ path('app_step3_edit', {'id': etudiant_step3.id}) }}">edit</a>
+
+    {{ include('step3/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etudiant{% endblock %}
+
+{% block body %}
+    <h1>Etudiant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ etudiant.id }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ etudiant.status ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Cne</th>
+                <td>{{ etudiant.cne }}</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>{{ etudiant.cin }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ etudiant.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ etudiant.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Date_Naissance</th>
+                <td>{{ etudiant.dateNaissance ? etudiant.dateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ etudiant.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ etudiant.email }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ etudiant.genre }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ etudiant.ville }}</td>
+            </tr>
+            <tr>
+                <th>Adresse_postale</th>
+                <td>{{ etudiant.adressePostale }}</td>
+            </tr>
+            <tr>
+                <th>Nationalite</th>
+                <td>{{ etudiant.nationalite }}</td>
+            </tr>
+            <tr>
+                <th>Profession_pere</th>
+                <td>{{ etudiant.professionPere }}</td>
+            </tr>
+            <tr>
+                <th>Profession_mere</th>
+                <td>{{ etudiant.professionMere }}</td>
+            </tr>
+            <tr>
+                <th>Gsm_mere</th>
+                <td>{{ etudiant.gsmMere }}</td>
+            </tr>
+            <tr>
+                <th>Gsm_pere</th>
+                <td>{{ etudiant.gsmPere }}</td>
+            </tr>
+            <tr>
+                <th>Mot_passe</th>
+                <td>{{ etudiant.motPasse }}</td>
+            </tr>
+            <tr>
+                <th>Confirm_pass</th>
+                <td>{{ etudiant.ConfirmPass }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_etudiant_index') }}">back to list</a>
+
+    <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}">edit</a>
+
+    {{ include('etudiant/_delete_form.html.twig') }}
+{% endblock %}
