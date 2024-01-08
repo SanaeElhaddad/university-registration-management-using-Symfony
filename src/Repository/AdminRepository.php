@@ -45,4 +45,11 @@ class AdminRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+        public function findSingleAdmin(): ?Admin
+        {
+            return $this->createQueryBuilder('a')
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getOneOrNullResult();
+        }
 }

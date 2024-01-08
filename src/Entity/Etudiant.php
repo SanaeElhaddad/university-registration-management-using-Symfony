@@ -6,6 +6,7 @@ use App\Repository\EtudiantRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
 class Etudiant
 {
@@ -13,6 +14,7 @@ class Etudiant
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+    
 
     #[ORM\ManyToOne(inversedBy: 'etudiants')]
     #[ORM\JoinColumn(nullable: false)]
@@ -21,7 +23,6 @@ class Etudiant
     #[ORM\OneToOne(mappedBy: 'etudiant', cascade: ['persist', 'remove'])]
     private ?Compte $compte = null;
     
-   
     #[ORM\Column(length: 255)]
     private ?string $cne = null;
 
@@ -33,7 +34,6 @@ class Etudiant
 
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
-
     
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_Naissance = null;
@@ -71,27 +71,9 @@ class Etudiant
     #[ORM\Column(length: 255)]
     private ?string $mot_passe = null;
     private ?string $confirmPass = null;
-
    
     #[ORM\Column(nullable: true)]
     private ?bool $status = null;
-
-    #[ORM\OneToOne(mappedBy: 'etudiantstep2', cascade: ['persist', 'remove'])]
-    private ?EtudiantStep2 $etudiantStep2 = null;
-
-
-    public function getConfirmPass(): ?string
-    {
-        return $this->confirmPass;
-    }
-    public function setConfirmPass(string $confirmPass): void
-    {
-        $this->confirmPass = $confirmPass;
-    }
-    
-
-    #[ORM\OneToOne(mappedBy: 'E_step3', cascade: ['persist', 'remove'])]
-    private ?EtudiantStep3 $etudiantStep3 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $niveau = null;
@@ -108,24 +90,33 @@ class Etudiant
     #[ORM\Column(length: 255)]
     private ?string $note_bac = null;
 
+
     #[ORM\Column(length: 255,nullable: true)]
     private ?string $Attestation_reussite = null;
-
-    #[ORM\Column(length: 255)]
+    
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $carte_nationale = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $Attestation_reussite1 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $Attestation_reussite2 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $licence = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $Attestation_reussite4 = null;
-
+    
+    public function getConfirmPass(): ?string
+    {
+        return $this->confirmPass;
+    }
+    public function setConfirmPass(string $confirmPass): void
+    {
+        $this->confirmPass = $confirmPass;
+    }
 
     public function getId(): ?int
     {
@@ -370,41 +361,6 @@ public function setDateNaissance(?\DateTimeInterface $date_Naissance): static
     public function setStatus(?bool $status): static
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    public function getEtudiantStep2(): ?EtudiantStep2
-    {
-        return $this->etudiantStep2;
-    }
-
-    public function setEtudiantStep2(EtudiantStep2 $etudiantStep2): static
-    {
-        // set the owning side of the relation if necessary
-        if ($etudiantStep2->getEtudiantstep2() !== $this) {
-            $etudiantStep2->setEtudiantstep2($this);
-        }
-
-        $this->etudiantStep2 = $etudiantStep2;
-
-        return $this;
-    }
-
-
-    public function getEtudiantStep3(): ?EtudiantStep3
-    {
-        return $this->etudiantStep3;
-    }
-
-    public function setEtudiantStep3(EtudiantStep3 $etudiantStep3): static
-    {
-        // set the owning side of the relation if necessary
-        if ($etudiantStep3->getEStep3() !== $this) {
-            $etudiantStep3->setEStep3($this);
-        }
-
-        $this->etudiantStep3 = $etudiantStep3;
 
         return $this;
     }

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<title>{% block title %}{% endblock %}</title>
+  
+ {% block stylesheets %}
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>'">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/dist/summernote.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert/sweetalert.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.css') }}">
+{% endblock %}
+
+<body class="font-muli theme-cyan gradient">
+
+    <div class="page-loader-wrapper">
+    <div class="loader">
+    </div>
+    </div>
+
+    <div id="main_content">        
+        <div id="header_top" class="header_top">
+        <div class="container">
+            <div class="hleft">
+                <a class="header-brand" ><i class="fa fa-graduation-cap brand-logo"></i></a>
+                <div class="dropdown">
+                            <a href="javascript:void(0)" class="nav-link icon menu_toggle"><i class="fe fe-align-center"></i></a>
+                            <a href="javascript:void(0)" class="nav-link icon settingbar"><i class="fe fe-settings"></i></a>
+                </div>
+            </div>
+            <div class="hright">
+                <a href="javascript:void(0)" class="nav-link icon right_tab"><i class="fe fe-align-right"></i></a>
+                <a href="{{path('app_logout')}}" class="nav-link icon settingbar"><i class="fe fe-power"></i></a>                
+            </div>
+        </div>
+        </div>
+
+        <div id="rightsidebar" class="right_sidebar">
+        <a href="javascript:void(0)" class="p-3 settingbar float-right"><i class="fa fa-close"></i></a>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Settings" aria-expanded="true">Settings</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane vivify fadeIn active" id="Settings" aria-expanded="true">
+                <div class="mb-4">
+                    <h6 class="font-14 font-weight-bold text-muted">Theme Color</h6>
+                    <ul class="choose-skin list-unstyled mb-0">
+                        <li data-theme="azure"><div class="azure"></div></li>
+                        <li data-theme="indigo"><div class="indigo"></div></li>
+                        <li data-theme="purple"><div class="purple"></div></li>
+                        <li data-theme="orange"><div class="orange"></div></li>
+                        <li data-theme="green"><div class="green"></div></li>
+                        <li data-theme="cyan" class="active"><div class="cyan"></div></li>
+                        <li data-theme="blush"><div class="blush"></div></li>
+                        <li data-theme="white"><div class="bg-white"></div></li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h6 class="font-14 font-weight-bold text-muted">Font Style</h6>
+                    <div class="custom-controls-stacked font_setting">
+                        <label class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" name="font" value="font-muli" checked="">
+                            <span class="custom-control-label">Muli Google Font</span>
+                        </label>
+                        <label class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" name="font" value="font-montserrat">
+                            <span class="custom-control-label">Montserrat Google Font</span>
+                        </label>
+                        <label class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" name="font" value="font-poppins">
+                            <span class="custom-control-label">Poppins Google Font</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <h6 class="font-14 font-weight-bold mt-4 text-muted">General Settings</h6>
+                    <ul class="setting-list list-unstyled mt-1 setting_switch">
+                        <li>
+                            <label class="custom-switch">
+                                <span class="custom-switch-description">Night Mode</span>
+                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input btn-darkmode">
+                                <span class="custom-switch-indicator"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="custom-switch">
+                                <span class="custom-switch-description">Icon Color</span>
+                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input btn-iconcolor">
+                                <span class="custom-switch-indicator"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="custom-switch">
+                                <span class="custom-switch-description">Gradient Color</span>
+                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input btn-gradient" checked="">
+                                <span class="custom-switch-indicator"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="custom-switch">
+                                <span class="custom-switch-description">Box Shadow</span>
+                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input btn-boxshadow">
+                                <span class="custom-switch-indicator"></span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+            </div>
+        </div>
+        </div>
+
+        <div id="left-sidebar" class="sidebar">
+        <h5 class="brand-name">Administartion<a href="javascript:void(0)" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#menu-uni">University</a></li>
+        </ul>
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="menu-uni" role="tabpanel">
+                <nav class="sidebar-nav">
+                    <ul class="metismenu">
+                        <li class="active"><a href="{{ path('home_admin') }}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
+                        <li><a href="{{ path('admin_Faculte') }}"><i class="fa fa-black-tie"></i><span>Faculte</span></a></li>
+                        <li><a href="{{ path('admin_Filiere') }}"><i class="fa fa-black-tie"></i><span>Filiere</span></a></li>
+                        <li><a href="{{ path('admin_responsable') }}"><i class="fa fa-users"></i><span>Responsable</span></a></li>
+                        <li><a href="{{ path('admin_secretaire') }}"><i class="fa fa-users"></i><span>Secretaire</span></a></li>
+                        <li><a href="#"><i class="fa fa-address-book"></i><span>Student</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        </div>
+
+        <div class="user_div">
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#righttab-statistics">Statistics</a></li>
+        </ul>
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="righttab-statistics" role="tabpanel">
+                <div class="card">
+                    <div class="card-body top_counter">
+                        <div class="icon bg-yellow"><i class="fa fa-users"></i> </div>
+                        <div class="content">
+                            <span>Total Student</span>
+                            <h5 class="number mb-0">2,051</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body top_counter">
+                        <div class="icon bg-gray"><i class="fa fa-sitemap"></i> </div>
+                        <div class="content">
+                            <span>Department</span>
+                            <h5 class="number mb-0">14</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body top_counter">
+                        <div class="icon bg-dark"><i class="fa fa-black-tie"></i> </div>
+                        <div class="content">
+                            <span>Total Teacher</span>
+                            <h5 class="number mb-0">27</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        <div class="page">
+                <div class="section-body" id="page_top" >
+                    <div class="container-fluid">
+                        <div class="page-header">
+                            <div class="left">                        
+                            </div>
+                            <div class="right">
+                                <div class="notification d-flex">
+                                    <div class="dropdown d-flex">
+                                    </div>
+                                    <div class="dropdown d-flex">
+                                        <a href="javascript:void(0)" class="chip ml-3" data-toggle="dropdown">
+                                            <span class="avatar" style="background-image: url('{{ asset('uploads/' ~ app.user.image) }}')"></span> {{ app.user.nom }}</a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            <a class="dropdown-item" href="{{path('profil_admin')}}"><i class="dropdown-icon fe fe-user"></i> Profile</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{path('app_logout')}}"><i class="dropdown-icon fe fe-log-out"></i> Sign out</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% block body %}
+                    
+                {% endblock %}
+            </div>
+
+
+    
+    
+    
+    
+    </div>
+
+
+</body>
+
+{% block javascripts %}
+    <script src="{{ asset('assets/bundles/lib.vendor.bundle.js') }}"></script>
+    <script src="{{ asset('assets/bundles/counterup.bundle.js') }}"></script>
+    <script src="{{ asset('assets/bundles/apexcharts.bundle.js') }}"></script>
+    <script src="{{ asset('assets/bundles/summernote.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/core.js') }}"></script>
+    <script src="{{ asset('assets/js/page/index.js') }}"></script>
+    <script src="{{ asset('assets/js/page/summernote.js') }}"></script>
+    <script src="{{ asset('assets/plugins/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/page/dialogs.js') }}"></script>
+    <script src="{{ asset('assets/js/form/dropify.js') }}"></script>
+    <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
+    <script src="{{ asset('bundles/fullcalendar.bundle.js') }}"></script>
+    <script src="{{ asset('bundles/knobjs.bundle.js') }}"></script>
+    <script src="{{ asset('js/page/calendar.js') }}"></script>
+    <script src="{{ asset('js/chart/knobjs.js') }}"></script>
+{% endblock %}
+
+
