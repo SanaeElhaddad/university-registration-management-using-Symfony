@@ -90,25 +90,24 @@ class Etudiant
     #[ORM\Column(length: 255)]
     private ?string $note_bac = null;
 
-    #[ORM\Column(type: Types::BINARY, nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $Attestation_reussite = null;
-
-    #[ORM\Column(type: Types::BINARY, nullable: true)]
+    
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $carte_nationale = null;
-
-    #[ORM\Column(type: Types::BINARY, nullable: true)]
+    
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $Attestation_reussite1 = null;
-
-    #[ORM\Column(type: Types::BINARY, nullable: true)]
+    
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $Attestation_reussite2 = null;
-
-    #[ORM\Column(type: Types::BINARY, nullable: true)]
+    
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $licence = null;
-
-    #[ORM\Column(type: Types::BINARY, nullable: true)]
-    private ?string $Attestation_reussite4 = null;  
-
-
+    
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $Attestation_reussite4 = null;
+    
     public function getConfirmPass(): ?string
     {
         return $this->confirmPass;
