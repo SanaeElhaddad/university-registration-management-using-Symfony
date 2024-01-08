@@ -1,181 +1,22 @@
-{# Assuming this is your Symfony form rendering code #}
-
-    {#{ form_widget(form) }#}
-    
-
-    
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
- h1 {
-  text-align: center;
-}
-
-h2 {
-    margin: 0;
-}
-#multi-step-form-container {
-    margin-top: 30px!important;
-}
-.text-center {
-    text-align: center;
-}
-.mx-auto {
-    margin-left: auto;
-    margin-right: auto;
-}
-.pl-0 {
-    padding-left: 0;
-}
-.button {
-    padding: 0.7rem 1.5rem;
-    border: 1px solid #4361ee;
-    background-color: #4361ee;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.submit-btn {
-    border: 1px solid #0e9594;
-    background-color: #0e9594;
-}
-.mt-3 {
-    margin-top: 2rem;
-}
-.d-none {
-    display: none;
-}
-.form-step {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    padding: 3rem;
-}
-.font-normal {
-    font-weight: normal;
-}
-ul.form-stepper {
-    counter-reset: section;
-    margin-bottom: 3rem;
-}
-ul.form-stepper .form-stepper-circle {
-    position: relative;
-}
-ul.form-stepper .form-stepper-circle span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%);
-}
-.form-stepper-horizontal {
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-}
-ul.form-stepper > li:not(:last-of-type) {
-    margin-bottom: 0.625rem;
-    -webkit-transition: margin-bottom 0.4s;
-    -o-transition: margin-bottom 0.4s;
-    transition: margin-bottom 0.4s;
-}
-.form-stepper-horizontal > li:not(:last-of-type) {
-    margin-bottom: 0 !important;
-}
-.form-stepper-horizontal li {
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: start;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-}
-.form-stepper-horizontal li:not(:last-child):after {
-    position: relative;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    height: 1px;
-    content: "";
-    top: 32%;
-}
-.form-stepper-horizontal li:after {
-    background-color: #dee2e6;
-}
-.form-stepper-horizontal li.form-stepper-completed:after {
-    background-color: #4da3ff;
-}
-.form-stepper-horizontal li:last-child {
-    flex: unset;
-}
-ul.form-stepper li a .form-stepper-circle {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    margin-right: 0;
-    line-height: 1.7rem;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.38);
-    border-radius: 50%;
-}
-.form-stepper .form-stepper-active .form-stepper-circle {
-    background-color: #4361ee !important;
-    color: #fff;
-}
-.form-stepper .form-stepper-active .label {
-    color: #4361ee !important;
-}
-.form-stepper .form-stepper-active .form-stepper-circle:hover {
-    background-color: #4361ee !important;
-    color: #fff !important;
-}
-.form-stepper .form-stepper-unfinished .form-stepper-circle {
-    background-color: #f8f7ff;
-}
-.form-stepper .form-stepper-completed .form-stepper-circle {
-    background-color: #0e9594 !important;
-    color: #fff;
-}
-.form-stepper .form-stepper-completed .label {
-    color: #0e9594 !important;
-}
-.form-stepper .form-stepper-completed .form-stepper-circle:hover {
-    background-color: #0e9594 !important;
-    color: #fff !important;
-}
-.form-stepper .form-stepper-active span.text-muted {
-    color: #fff !important;
-}
-.form-stepper .form-stepper-completed span.text-muted {
-    color: #fff !important;
-}
-.form-stepper .label {
-    font-size: 1rem;
-    margin-top: 0.5rem;
-}
-.form-stepper a {
-    cursor: default;
-}
-
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <!--link rel="stylesheet" href="./style.css"-->
+    
     <title>Document</title>
+    <link rel="stylesheet" href="{{asset('assets/formStyle.css  ')}}">
+
 </head>
 <body>
     <div>
         <h1>Inscription</h1>
+
         <div id="multi-step-form-container">
             <!-- Form Steps / Progress Bar -->
             <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
@@ -207,62 +48,167 @@ ul.form-stepper li a .form-stepper-circle {
                     </a>
                 </li>
             </ul>
-            {{ form_start(form) }}
-            <!-- Step Wise Form Content -->
-            <!-- Step 1 Content -->
+            
+            {{ form_start(form, {'attr': {'id': 'form'}}) }}
+
+                <!-- Step Wise Form Content -->
+                <!-- Step 1 Content -->
                 <section id="step-1" class="form-step">
                     <!-- Step 1 input fields -->
-                <div class="row">
-                    <div class="col-6">
-                       {{ form_row(form.cne) }}
-                      {{ form_row(form.cin) }}
-                      {{ form_row(form.nom) }}
-                      {{ form_row(form.prenom) }}
-                       {{ form_row(form.date_Naissance) }}
-                     
-                      {{ form_row(form.telephone) }}
-                       {{ form_row(form.email) }}
-                      {{ form_row(form.genre) }}
-                      {{ form_row(form.ville) }}
+                    <div class="row">
+                        <div class="col-6">
+
+                          
+                        <div class='input-control'>
+                         {{ form_row(form.cne, {
+                        'attr': {'class': 'form', 'oninput': 'validateInputs(this)', 'id': 'etudiant_cne'}
+                         }) }}
+                        <span id="cneError" class="error"></span>
+                           
+                          
+                         {{ form_row(form.cin, {
+                         'attr': {'class': 'form', 'oninput': 'validateInputs(this)', 'id': 'etudiant_cin'}
+                         }) }}
+                         <span id="cinError" class="error"></span>
+                        
+                        {{ form_row(form.nom, {
+                         'attr': {'class': 'form', 'oninput': 'validateInputs(this)', 'id': 'etudiant_nom'}
+                          }) }}
+                        <span id="nomError" class="error"></span>
+
+                         {{ form_row(form.prenom, {
+                            'attr': {'class': 'form', 'oninput': 'validateInputs(this)', 'id': 'etudiant_prenom'}
+                          }) }}
+                         <span id="prenomError" class="error"></span>
+                          {{ form_row(form.date_Naissance, {
+                         'attr': {'class': 'form', 'oninput': 'validateInputs(this)', 'id': 'etudiant_date_Naissance'}
+                         }) }}
+                         <span id="dateNaissanceError" class="error"></span>
+                          {{ form_row(form.telephone, {
+                         'attr': {'class': 'form', 'oninput': 'validateInputs(this)', 'id': 'etudiant_telephone'}
+                         }) }}
+                         <span id="telephoneError" class="error"></span>
+
+                          {{ form_row(form.email, {
+                         'attr': {'class': 'form', 'oninput': 'validateInputs(this)', 'id': 'etudiant_email'}
+                         }) }}
+                         <span id="emailError" class="error"></span>
+
+                          {{ form_row(form.genre, {
+                         'attr': {'class': 'form', 'oninput': 'validateInputs(this)', 'id': 'etudiant_genre'}
+                         }) }}
+                         <span id="genreError" class="error"></span>
+
+                         {{ form_row(form.ville, {
+                         'attr': {'class': 'form', 'oninput': 'validateInputs(this)', 'id': 'etudiant_ville'}
+                         }) }}
+                         <span id="villeError" class="error"></span>
+                            
+                         
+ 
+                        </div>
+</div>
+                        <div class="col-6">
+                        <div class='input-control'>
+                        {{ form_row(form.adresse_postale, {
+                        'attr': {'class': 'form', 'oninput': 'validateInputs(this)', 'id': 'etudiant_adresse_postale'}
+                         }) }}
+                        <span id="adressepostaleError" class="error"></span>
+                        
+                        {{ form_row(form.nationalite, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_nationalite'}
+                          }) }}
+                          <span id="nationaliteError" class="error"></span>
+                            {{ form_row(form.profession_pere, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_profession_pere'}
+                          }) }}
+                          <span id="professionpereError" class="error"></span>
+                           
+                            {{ form_row(form.profession_mere, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_profession_mere'}
+                          }) }}
+                          <span id="professionmereError" class="error"></span>
+                           
+                            {{ form_row(form.gsm_mere, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_gsm_mere'}
+                          }) }}
+                          <span id="gsmmereError" class="error"></span>
+
+                           {{ form_row(form.gsm_pere, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_gsm_pere'}
+                          }) }}
+                          <span id="gsmpereError" class="error"></span>
+
+                          {{ form_row(form.filiere, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_filiere'}
+                          }) }}
+                          <span id="filiereError" class="error"></span>
+
+                          {{ form_row(form.mot_passe, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_mot_passe_first'}
+                          }) }}
+                          <span id="motpasseError" class="error"></span>
+                         
+
+                        </div>
+</div>
                     </div>
-                    <div class="col-6">
-                      {{ form_row(form.adresse_postale) }}
-                      {{ form_row(form.nationalite) }}
-                      {{ form_row(form.profession_pere) }}
-                      {{ form_row(form.profession_mere) }}
-                      {{ form_row(form.gsm_mere) }}
-                      {{ form_row(form.gsm_pere) }}
-                       {{ form_row(form.filiere) }}
-                      {{ form_row(form.mot_passe) }}
-                    </div>
-                </div>
+
                     <div class="mt-3">
                         <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
                     </div>
+                    
                 </section>
+
                 <!-- Step 2 Content, default hidden on page load. -->
                 <section id="step-2" class="form-step d-none">
                     <h2 class="font-normal"></h2>
                     <!-- Step 2 input fields -->
                     <div class="mt-3">
-                       {{ form_row(form.niveau) }}
-                      {{ form_row(form.note_math) }}
-                      {{ form_row(form.note_franc) }}
+                    <div class='input-control'>
+                     {{ form_row(form.note_math, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_note_math'}
+                          }) }}
+                          <span id="notemathError" class="error"></span>
+
+                          {{ form_row(form.note_franc, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_note_franc'}
+                          }) }}
+                          <span id="notefraError" class="error"></span>
+
+                          {{ form_row(form.niveau, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_niveau'}
+                          }) }}
+                          <span id="niveauError" class="error"></span>
+                         
+
+                    
                       
+                    </div>
                     </div>
                     <div class="mt-3">
                         <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
                         <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
                     </div>
                 </section>
+
                 <!-- Step 3 Content, default hidden on page load. -->
                 <section id="step-3" class="form-step d-none">
                     <h2 class="font-normal"></h2>
                     <!-- Step 3 input fields -->
                     <div class="mt-3">
                   
-                        {{ form_row(form.note_6eme) }}
-                       {{ form_row(form.note_bac) }}
+                  <div class='input-control'>
+                   {{ form_row(form.note_6eme, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_note_6eme'}
+                          }) }}
+                          <span id="note6Error" class="error"></span>
+                         
+                          {{ form_row(form.note_bac, {
+                          'attr': {'class': 'form-2', 'oninput': 'validateInputs(this)', 'id': 'etudiant_note_bac'}
+                          }) }}
+                          <span id="noteBacError" class="error"></span>
+                         
                        {{ form_row(form.Attestation_reussite) }}
                        {{ form_row(form.carte_nationale) }}
                     
@@ -276,167 +222,376 @@ ul.form-stepper li a .form-stepper-circle {
                         <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
                         <button type="submit" class="button submit-btn" >
                          {{ button_label|default('Save') }}
-            </button>
+                        </button>
                     </div>
                 </section>
            
             {{ form_end(form) }}
+
         </div>
     </div>
 </body>
-<script>/**
-    * Define a function to navigate betweens form steps.
-    * It accepts one parameter. That is - step number.
-    */
-   const navigateToFormStep = (stepNumber) => {
-       /**
-        * Hide all form steps.
-        */
-       document.querySelectorAll(".form-step").forEach((formStepElement) => {
-           formStepElement.classList.add("d-none");
-       });
-       /**
-        * Mark all form steps as unfinished.
-        */
-       document.querySelectorAll(".form-stepper-list").forEach((formStepHeader) => {
-           formStepHeader.classList.add("form-stepper-unfinished");
-           formStepHeader.classList.remove("form-stepper-active", "form-stepper-completed");
-       });
-       /**
-        * Show the current form step (as passed to the function).
-        */
-       document.querySelector("#step-" + stepNumber).classList.remove("d-none");
-       /**
-        * Select the form step circle (progress bar).
-        */
-       const formStepCircle = document.querySelector('li[step="' + stepNumber + '"]');
-       /**
-        * Mark the current form step as active.
-        */
-       formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");
-       formStepCircle.classList.add("form-stepper-active");
-       /**
-        * Loop through each form step circles.
-        * This loop will continue up to the current step number.
-        * Example: If the current step is 3,
-        * then the loop will perform operations for step 1 and 2.
-        */
-       for (let index = 0; index < stepNumber; index++) {
-           /**
-            * Select the form step circle (progress bar).
-            */
-           const formStepCircle = document.querySelector('li[step="' + index + '"]');
-           /**
-            * Check if the element exist. If yes, then proceed.
-            */
-           if (formStepCircle) {
-               /**
-                * Mark the form step as completed.
+
+    <script>
+
+        const navigateToFormStep = (stepNumber) => {
+            /**
+                * Hide all form steps.
                 */
-               formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");
-               formStepCircle.classList.add("form-stepper-completed");
-           }
-       }
-   };
-   /**
-    * Select all form navigation buttons, and loop through them.
-    */
-   document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
-       /**
-        * Add a click event listener to the button.
-        */
-       formNavigationBtn.addEventListener("click", () => {
-           /**
-            * Get the value of the step.
+            document.querySelectorAll(".form-step").forEach((formStepElement) => {
+                formStepElement.classList.add("d-none");
+            });
+            /**
+                * Mark all form steps as unfinished.
+                */
+            document.querySelectorAll(".form-stepper-list").forEach((formStepHeader) => {
+                formStepHeader.classList.add("form-stepper-unfinished");
+                formStepHeader.classList.remove("form-stepper-active", "form-stepper-completed");
+            });
+            /**
+                * Show the current form step (as passed to the function).
+                */
+            document.querySelector("#step-" + stepNumber).classList.remove("d-none");
+            /**
+                * Select the form step circle (progress bar).
+                */
+            const formStepCircle = document.querySelector('li[step="' + stepNumber + '"]');
+            /**
+                * Mark the current form step as active.
+                */
+            formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");
+            formStepCircle.classList.add("form-stepper-active");
+            /**
+                * Loop through each form step circles.
+                * This loop will continue up to the current step number.
+                * Example: If the current step is 3,
+                * then the loop will perform operations for step 1 and 2.
+                */
+            for (let index = 0; index < stepNumber; index++) {
+                /**
+                    * Select the form step circle (progress bar).
+                    */
+                const formStepCircle = document.querySelector('li[step="' + index + '"]');
+                /**
+                    * Check if the element exist. If yes, then proceed.
+                    */
+                if (formStepCircle) {
+                    /**
+                        * Mark the form step as completed.
+                        */
+                    formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");
+                    formStepCircle.classList.add("form-stepper-completed");
+                }
+            }
+        };
+        /**
+            * Select all form navigation buttons, and loop through them.
             */
-           const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
-           /**
-            * Call the function to navigate to the target form step.
-            */
-           navigateToFormStep(stepNumber);
-       });
-   });
-   document.getElementById('etudiant_niveau').addEventListener('input',function () {
-    var level=this.value;
-     console.log(level);
-     
-    if(level=='1'){
-       
-        document.getElementById('etudiant_Attestation_reussite1').style.display='none';
-         document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='none';
-        document.getElementById('etudiant_Attestation_reussite2').style.display='none';
-         document.querySelector('label[for="etudiant_Attestation_reussite2"]').style.display='none';
-        document.getElementById('etudiant_licence').style.display='none';
-         document.querySelector('label[for="etudiant_licence"]').style.display='none';
-        document.getElementById('etudiant_Attestation_reussite4').style.display='none';
-         document.querySelector('label[for="etudiant_Attestation_reussite4"]').style.display='none';
-
-
-       
-
-    }
-    else if(level=='2'){
-       
+        document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
+            /**
+                * Add a click event listener to the button.
+                */
+            formNavigationBtn.addEventListener("click", () => {
+                /**
+                    * Get the value of the step.
+                    */
+                const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
+                /**
+                    * Call the function to navigate to the target form step.
+                    */
+                navigateToFormStep(stepNumber);
+            });
+        });
         
-        document.getElementById('etudiant_Attestation_reussite2').style.display='none';
-         document.querySelector('label[for="etudiant_Attestation_reussite2"]').style.display='none';
-        document.getElementById('etudiant_licence').style.display='none';
-        document.querySelector('label[for="etudiant_licence"]').style.display='none';
-        document.getElementById('etudiant_Attestation_reussite4').style.display='none';
-        document.querySelector('label[for="etudiant_Attestation_reussite4"]').style.display='none';
-        
-        document.getElementById('etudiant_Attestation_reussite1').style.display='block';
-         document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='block';
+const etudiant_cne = document.getElementById('etudiant_cne');
+const etudiant_cin = document.getElementById('etudiant_cin');
+const cneError = document.getElementById('cneError');
+const cinError = document.getElementById('cinError');
+const etudiant_email = document.getElementById('etudiant_email');
+const emailError = document.getElementById('emailError');
+const etudiant_nationalite = document.getElementById('etudiant_nationalite');
+const nationaliteError = document.getElementById('nationaliteError');
+const etudiant_adresse_postale = document.getElementById('etudiant_adresse_postale');
+const adressepostaleError = document.getElementById('adressepostaleError');
+const etudiant_gsm_mere= document.getElementById('etudiant_gsm_mere');
+const gsmmereError = document.getElementById('gsmmereError');
+const etudiant_gsm_pere= document.getElementById('etudiant_gsm_pere');
+const gsmpereError = document.getElementById('gsmpereError');
+const etudiant_mot_passe_first= document.getElementById('etudiant_mot_passe_first');
+const motpasseError = document.getElementById('motpasseError');
+const etudiant_filiere= document.getElementById('etudiant_filiere');
+const filiereError = document.getElementById('filiereError');
 
+const etudiant_nom = document.getElementById('etudiant_nom');
+const etudiant_prenom = document.getElementById('etudiant_prenom');
+const etudiant_date_Naissance = document.getElementById('etudiant_date_Naissance');
+const etudiant_telephone = document.getElementById('etudiant_telephone');
+const etudiant_note_math = document.getElementById('etudiant_note_math');
+const etudiant_note_franc   = document.getElementById('etudiant_note_franc');
+const etudiant_niveau= document.getElementById('etudiant_niveau');
+const etudiant_note_6eme= document.getElementById('etudiant_note_6eme');
+const etudiant_note_bac= document.getElementById('etudiant_note_bac');
+
+
+const telephoneError = document.getElementById('telephoneError');
+const nomError = document.getElementById('nomError');
+const prenomError = document.getElementById('prenomError');
+const dateNaissanceError = document.getElementById('dateNaissanceError');
+const notemathError = document.getElementById('notemathError');
+const notefraError = document.getElementById('notefraError');
+const niveauError = document.getElementById('niveauError');
+const note6Error = document.getElementById('note6Error');
+const noteBacError = document.getElementById('noteBacError');
+
+
+
+
+const setError = (element, message) => {
+    const inputControl = element.parentElement;
+    inputControl.classList.add('error');
+    inputControl.classList.remove('success');
+    cneError.innerText = message;  // Utilisez cneError ou cinError selon le champ
+};
+
+const setSuccess = element => {
+    const inputControl = element.parentElement;
+    inputControl.classList.add('success');
+    inputControl.classList.remove('error');
+    cneError.innerText = '';  // Utilisez cneError ou cinError selon le champ
+};
+const isValidEmail = email => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+const isValidTelephone = telephone => {
+    const re = /^\d+$/;
+    return re.test(telephone);
+};
+const isValidGsmPere = gsm_pere => {
+    const re = /^\d+$/;
+    return re.test(gsm_pere);
+};const isValidGsmMere = gsm_mere=> {
+    const re = /^\d+$/;
+    return re.test(gsm_mere);
+};
+const isValidCharacters = value => {
+    const re = /^[a-zA-Z\s]+$/;
+    return re.test(value);
+};
+const isValidNom = nom => {
+    const regex = /^[A-Za-z]+$/;
+    return regex.test(nom);
+};
+const isValidPrenom = prenom => {
+    const regex = /^[A-Za-z]+$/;
+    return regex.test(prenom);
+};
+const isValidVille = ville => {
+    const regex = /^[A-Za-z]+$/;
+    return regex.test(ville);
+};
+const isValidNationalite = nationalite => {
+    const regex = /^[A-Za-z]+$/;
+    return regex.test(nationalite);
+};
+const isValidAdresseP = adresse_postale => {
+    const regex = /^[A-Za-z]+$/;
+    return regex.test(adresse_postale);
+};
+const isValidProfessionP = etudiant_profession_pere => {
+    const regex = /^[A-Za-z]+$/;
+    return regex.test(etudiant_profession_pere);
+};
+const isValidProfessionM = etudiant_profession_mere => {
+    const regex = /^[A-Za-z]+$/;
+    return regex.test(etudiant_profession_mere);
+};
+
+
+const validateInputs = (element, errorDisplay) => {
+    const inputValue = element.value.trim();
+
+    if (inputValue === '') {
+        setError(element, 'Veuillez remplir cette case');
+    } else if (inputValue.length > 22) {
+        setError(element, 'Ne dépassez pas 10 caractères');
+    } else if (element.id === 'etudiant_nom' && !isValidNom(inputValue)) {
+        setError(element, 'Utilisez uniquement des caractères alphabétiques');
+    } else if (element.id === 'etudiant_prenom' && !isValidPrenom(inputValue)) {
+        setError(element, 'Utilisez uniquement des caractères alphabétiques');
     }
-     else if(level=='3'){
-       
-        document.getElementById('etudiant_Attestation_reussite1').style.display='none';
-        document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='none';
-        document.getElementById('etudiant_licence').style.display='none';
-         document.querySelector('label[for="etudiant_licence"]').style.display='none';
-        document.getElementById('etudiant_Attestation_reussite4').style.display='none';
-        document.querySelector('label[for="etudiant_Attestation_reussite4"]').style.display='none';
-        document.getElementById('etudiant_Attestation_reussite2').style.display='block';
-         document.querySelector('label[for="etudiant_Attestation_reussite2"]').style.display='block';
-           document.getElementById('etudiant_Attestation_reussite1').style.display='block';
-         document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='block';
-
+    else if (element.id === 'etudiant_ville' && !isValidVille(inputValue)) {
+        setError(element, 'Utilisez uniquement des caractères alphabétiques');
+    }else if (element.id === 'etudiant_nationalite' && !isValidNationalite(inputValue)) {
+        setError(element, 'Utilisez uniquement des caractères alphabétiques'); 
     }
- else if(level=='4'){
-       
-        document.getElementById('etudiant_Attestation_reussite1').style.display='none';
-         document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='none';
-
-        document.getElementById('etudiant_Attestation_reussite2').style.display='none';
-         document.querySelector('label[for="etudiant_Attestation_reussite2"]').style.display='none';
-
-       
-        document.getElementById('etudiant_Attestation_reussite4').style.display='none';
-         document.querySelector('label[for="etudiant_Attestation_reussite4"]').style.display='none';
-         document.getElementById('etudiant_licence').style.display='block';
-         document.querySelector('label[for="etudiant_licence"]').style.display='block';
-
+    else if (element.id === 'etudiant_profession_mere' && !isValidProfessionM(inputValue)) {
+        setError(element, 'Utilisez uniquement des caractères alphabétiques'); 
+    } else if (element.id === 'etudiant_profession_pere' && !isValidProfessionP(inputValue)) {
+        setError(element, 'Utilisez uniquement des caractères alphabétiques'); 
     }
-    else if(level=='5'){
-       
-        document.getElementById('etudiant_Attestation_reussite1').style.display='none';
-        document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='none';
+    else if (element.id === 'etudiant_telephone') {
+        const telephoneError = document.getElementById('telephoneError');
+        const telephoneValue = inputValue;
 
-        document.getElementById('etudiant_Attestation_reussite2').style.display='none';
-        document.querySelector('label[for="etudiant_Attestation_reussite2"]').style.display='none';
+        if (telephoneValue === '') {
+            setError(element, 'Le numéro de téléphone est vide');
+        } else if (!isValidTelephone(telephoneValue)) {
+            setError(element, 'Veuillez fournir un numéro de téléphone valide');
+        } else {
+            setSuccess(element);
+        }
+    } 
 
-       document.getElementById('etudiant_licence').style.display='none';
-       document.querySelector('label[for="etudiant_licence"]').style.display='none';
+     else if (element.id === 'etudiant_email') {
+        const emailError = document.getElementById('emailError');
+        const emailValue = inputValue;
 
-      document.getElementById('etudiant_Attestation_reussite4').style.display='block';
-         document.querySelector('label[for="etudiant_Attestation_reussite4"]').style.display='block';
-
-
+        if (emailValue === '') {
+            setError(element, 'L\'email est vide');
+        } else if (!isValidEmail(emailValue)) {
+            setError(element, 'Veuillez fournir une adresse email valide');
+        } else {
+            setSuccess(element);
+        }
+    } else {
+        setSuccess(element);
     }
+};
+
+   function validatePhoneNumber(element, errorElement, validatorFunction) {
+    const phoneNumberError = document.getElementById(errorElement);
+    const phoneNumberValue = element.value.trim();
+
+    if (phoneNumberValue === '') {
+        setError(element, 'Le numéro de téléphone est vide');
+    } else if (!validatorFunction(phoneNumberValue)) {
+        setError(element, 'Veuillez fournir un numéro de téléphone valide');
+    } else {
+        setSuccess(element);
+    }
+}
+function validateNote(element, errorElement, validatorFunction) {
+    const noteError = document.getElementById(errorElement);
+    const noteValue = element.value.trim();
+
+    if (noteValue === '') {
+        setError(element, 'La note n est pas valide');
+    } else if (!validatorFunction(noteValue)) {
+        setError(element, 'Veuillez fournir une note valide');
+    } else {
+        setSuccess(element);
+    }
+}
+
+
+// Ajoutez un écouteur d'événements pour chaque champ
+etudiant_cne.addEventListener('input', () => validateInputs(etudiant_cne, cneError));
+etudiant_cin.addEventListener('input', () => validateInputs(etudiant_cin, cinError));
+etudiant_nom.addEventListener('input', () => validateInputs(etudiant_nom, nomError));
+etudiant_prenom.addEventListener('input', () => validateInputs(etudiant_prenom, prenomError));
+etudiant_ville.addEventListener('input', () => validateInputs(etudiant_ville, villeError));
+etudiant_date_Naissance.addEventListener('input', () => validateInputs(etudiant_date_Naissance, dateNaissanceError));
+etudiant_email.addEventListener('input', () => validateInputs(etudiant_email, emailError));
+etudiant_telephone.addEventListener('input', () => validateInputs(etudiant_telephone, telephoneError));
+etudiant_nationalite.addEventListener('input', () => validateInputs(etudiant_nationalite, nationaliteError));
+etudiant_adresse_postale.addEventListener('input', () => validateInputs(etudiant_adresse_postale, adressepostaleError));
+etudiant_filiere.addEventListener('input', () => validateInputs(etudiant_filiere, filiereError));
+etudiant_gsm_mere.addEventListener('input', () => validatePhoneNumber(etudiant_gsm_mere, 'gsmmereError', isValidGsmMere));
+etudiant_gsm_pere.addEventListener('input', () => validatePhoneNumber(etudiant_gsm_pere, 'gsmpereError', isValidGsmPere));
+etudiant_mot_passe_first.addEventListener('input', () => validateInputs(etudiant_mot_passe_first, motpasseError));   
+etudiant_note_math.addEventListener('input', () => validateNote(etudiant_note_math, 'notemathError', isValidGsmMere));
+etudiant_note_franc.addEventListener('input', () => validateNote(etudiant_note_franc, 'notefraError', isValidGsmPere));
+etudiant_note_6eme.addEventListener('input', () => validateNote(etudiant_note_6eme, 'note6Error', isValidGsmMere));
+etudiant_note_bac.addEventListener('input', () => validateNote(etudiant_note_bac, 'noteBacError', isValidGsmPere));
+   
     
 
-   
-   });
-   </script>
+
+
+
+
+       document.getElementById('etudiant_niveau').addEventListener('input',function () {
+                var level=this.value;
+                console.log(level);
+                
+                if(level=='1'){
+                
+                    document.getElementById('etudiant_Attestation_reussite1').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='none';
+                    document.getElementById('etudiant_Attestation_reussite2').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite2"]').style.display='none';
+                    document.getElementById('etudiant_licence').style.display='none';
+                    document.querySelector('label[for="etudiant_licence"]').style.display='none';
+                    document.getElementById('etudiant_Attestation_reussite4').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite4"]').style.display='none';
+
+                }
+                else if(level=='2'){
+                
+                    
+                    document.getElementById('etudiant_Attestation_reussite2').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite2"]').style.display='none';
+                    document.getElementById('etudiant_licence').style.display='none';
+                    document.querySelector('label[for="etudiant_licence"]').style.display='none';
+                    document.getElementById('etudiant_Attestation_reussite4').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite4"]').style.display='none';
+                    
+                    document.getElementById('etudiant_Attestation_reussite1').style.display='block';
+                    document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='block';
+                    document.getElementById('etudiant_Attestation_reussite').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite"]').style.display='none';
+
+                }
+                else if(level=='3'){
+                
+                
+                    document.getElementById('etudiant_licence').style.display='none';
+                    
+                    document.querySelector('label[for="etudiant_licence"]').style.display='none';
+                    document.getElementById('etudiant_Attestation_reussite4').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite4"]').style.display='none';
+                    document.getElementById('etudiant_Attestation_reussite2').style.display='block';
+                    document.querySelector('label[for="etudiant_Attestation_reussite2"]').style.display='block';
+                    document.getElementById('etudiant_Attestation_reussite1').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='none';
+                    document.getElementById('etudiant_Attestation_reussite').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite"]').style.display='none';
+
+
+                }
+                else if(level=='4'){
+                
+                    document.getElementById('etudiant_Attestation_reussite1').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='none';
+
+                    document.getElementById('etudiant_Attestation_reussite2').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite2"]').style.display='none';
+
+                
+                    document.getElementById('etudiant_Attestation_reussite4').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite4"]').style.display='none';
+                    document.getElementById('etudiant_licence').style.display='block';
+                    document.querySelector('label[for="etudiant_licence"]').style.display='block';
+
+                }
+                else if(level=='5'){
+                
+                    document.getElementById('etudiant_Attestation_reussite1').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite1"]').style.display='none';
+
+                    document.getElementById('etudiant_Attestation_reussite2').style.display='none';
+                    document.querySelector('label[for="etudiant_Attestation_reussite2"]').style.display='none';
+
+                    document.getElementById('etudiant_licence').style.display='none';
+                    document.querySelector('label[for="etudiant_licence"]').style.display='none';
+
+                    document.getElementById('etudiant_Attestation_reussite4').style.display='block';
+                    document.querySelector('label[for="etudiant_Attestation_reussite4"]').style.display='block';
+
+                }
+
+        });
+
+    </script>
 </html>
