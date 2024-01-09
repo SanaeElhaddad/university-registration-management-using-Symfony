@@ -95,7 +95,7 @@ class ListDattente
     #[ORM\Column(length: 255)]
     private ?string $Attestation_reussite2 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(nullable: true)]
     private ?string $Attestation_reussite4 = null;
 
     public function getId(): ?int
