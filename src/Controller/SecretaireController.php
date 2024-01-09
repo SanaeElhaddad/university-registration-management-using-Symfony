@@ -26,4 +26,10 @@ class SecretaireController extends AbstractController
         
         return $this->render('secretaire/etudiants.html.twig', ['etudiants' => $etudiants]);
     }
+    #[Route('/detail_etudiant/{id}', name: 'view_etudiant')]
+    public function DetailEtudiant(EtudiantRepository $etudiantRepository, $id): Response
+    {
+        $etudiant = $etudiantRepository->find($id);
+        return $this->render('secretaire/Etudiant.html.twig', ['etudiant' => $etudiant]);
+    }
 }

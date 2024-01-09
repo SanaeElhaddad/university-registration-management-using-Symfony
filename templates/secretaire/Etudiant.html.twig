@@ -1,0 +1,809 @@
+{% extends 'secretaire/base.html.twig' %}
+
+{% block body %}
+        <!-- Start Page title and tab -->
+        <div class="section-body">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center ">
+                    <div class="header-action">
+                        <h1 class="page-title">Etudiants</h1>
+                        <ol class="breadcrumb page-breadcrumb">
+                            {% if etudiant is not null %}
+                               <li class="breadcrumb-item"><a href="#">{{ etudiant.getNom() }}</a></li>
+                            {% endif %}
+                        </ol>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="section-body mt-4">
+            <div class="container-fluid">
+                    <div class="tab-pane">
+                        <div class="row">
+                            <div class="col-xl-4 col-md-12">
+                                <div class="card">
+                                    <div class="card-body w_user">
+                                        <div class="user_avtar">
+                                            <img class="rounded-circle" src="../assets/images/sm/girl.png" alt="">
+                                        </div>
+                                        <div class="wid-u-info">
+                                        {% if etudiant is not null %}
+                                        <h5>{{etudiant.getNom()}} {{etudiant.getPrenom()}}</h5>
+                                        {% endif %}
+                                         {% if etudiant is not null %}
+                                        <p class="text-muted m-b-0">Cin: {{etudiant.getCin()}}</p>
+                                        {% endif %}
+                                         {% if etudiant is not null %}
+                                        <p class="text-muted m-b-0">Cne: {{etudiant.getCne()}}</p>
+                                        {% endif %}
+                                         </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Apropos de l'étudiant</h3>
+                                        <div class="card-options ">
+                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                                        </div>
+                                    </div>
+									<div class="card-body">
+										<ul class="list-group">
+                                            <li class="list-group-item">
+                                                <b>Niveau</b>
+                                                {% if etudiant is not null %}
+                                                <div class="pull-right">{{etudiant.getNiveau()}}</div>
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Département</b>
+                                                {% if etudiant is not null %}
+                                                <div class="pull-right">{{ etudiant.getFiliere().getFaculte().getNom() }}</div>
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Filiére</b>
+                                                {% if etudiant is not null %}
+                                               <div class="pull-right">{{ etudiant.getFiliere().getNom() }}</div>
+                                                {% endif %}
+                                                
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Email </b>
+                                                {% if etudiant is not null %}
+                                               <div class="pull-right">{{etudiant.getEmail()}}</div>
+                                                {% endif %}
+                                                
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Téléphone</b>
+                                                {% if etudiant is not null %}
+                                               <div class="pull-right">{{etudiant.getTelephone()}}</div>
+                                                {% endif %}
+                                                
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="clearfix">
+
+                                                    <div class="float-left"><strong>Ville</strong></div>
+                                                    {% if etudiant is not null %}
+                                                    <div class="float-right">{{etudiant.getVille()}}</div>
+                                                    {% endif %}
+                                                    
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="clearfix">
+                                                    <div class="float-left"><strong>Nationalité</strong></div>
+                                                    {% if etudiant is not null %}
+                                                    <div class="float-right">{{etudiant.getNationalite()}}</div>
+                                                    {% endif %}
+                                                    
+                                                </div>
+                                            </li>
+                                        
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-12">
+                             <div id="1er">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">1 er Année</h3>
+                                        <div class="card-options ">
+                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                                        </div>
+                                    </div>
+                                <div class="card-body">
+                                    <div class=" row form-group">
+                                        <div class="col-6">
+                                            <label>Relevé de note de 6éme</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Relevé de note
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Relevé de note</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body">
+                                                           {% if etudiant is not null %}
+                                                           <iframe src="{{ asset(etudiant.getNote6eme()) }}" width="100%" height="600px"></iframe> 
+                                                           {% endif %}                                               
+                                                                                                             
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div> 
+                                        <div class="col-6">
+                                            <label>Relevé de note de Bac</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Relevé de note
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Relevé de note</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body">
+                                                                {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNoteBac()) }}" width="100%" height="600px"></iframe>  
+                                                            {% endif %}                                          
+                                                                                                            
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div>                                              
+                                    </div>
+                                        <div class=" row form-group" style="margin-top: 80px;">
+                                        <div class="col-6">
+                                            <label>Attestation de Reussite </label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Attestation
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Attestation de Reussite </h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body"> 
+                                                           {% if etudiant is not null %}
+                                                               <iframe src="{{ asset(etudiant.getNote6eme()) }}" width="100%" height="600px"></iframe>                                               
+                                                            {% endif %}                                               
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div> 
+                                        <div class="col-6">
+                                            <label>Carte Nationale d'Identité</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Carte Nationale
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Carte Nationale d'Identité</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body">
+                                                           {% if etudiant is not null %}
+                                                               <iframe src="{{ asset(etudiant.getNote6eme()) }}" width="100%" height="600px"></iframe>                                               
+                                                            {% endif %}                                                
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div>                                              
+                                    </div>
+                                        
+                                        <div class="row" style="margin-top: 80px;">
+                                          <div class="col-6 form-group">
+                                            <label>Note mathématique</label>
+                                            {% if etudiant is not null %}
+                                            <input type="text" class="form-control {% if etudiant.getNoteMath() < 12 %}is-invalid{% endif %}" value="{{ etudiant.getNoteMath() }}">
+                                               {% if etudiant.getNoteMath() < 12 %}
+                                                   <div class="invalid-feedback">note de mathématique est invalide</div>
+                                               {% endif %}                                                            {% endif %} 
+                                            
+                                        </div>
+                                        <div class="col-6 form-group">
+                                            <label>Note Françaie</label>
+                                            {% if etudiant is not null %}
+                                             <input type="text" class="form-control {% if etudiant.getNoteFranc() < 12 %}is-invalid{% endif %}" value="{{ etudiant.getNoteFranc() }}">
+                                             {% if etudiant.getNoteFranc() < 12 %}
+                                                 <div class="invalid-feedback">Note française est invalide</div>
+                                             {% endif %}
+                                            {% endif %} 
+                                          
+                                        </div>
+                                        </div>
+                                        <div style="margin-top: 80px;">
+                                        <a href="#" class="btn btn-primary">Valider</a>
+                                        <a href="#" class="btn btn-outline-secondary">Liste d'attente</a>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
+                              <!------------------------- fin 1er annee ------------------>
+                                <!------------------------- 2eme annee ------------------>
+                                <div id="2eme">
+                                 <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">2eme Année</h3>
+                                        <div class="card-options ">
+                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                                        </div>
+                                    </div>
+                                 <div class="card-body">
+                                    <div class=" row form-group">
+                                        <div class="col-6">
+                                            <label>Relevé de note de 6éme</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Relevé de note
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Relevé de note</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body">  
+                                                            {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNote6eme()) }}" width="100%" height="600px"></iframe>                                               
+
+                                                            {% endif %}                                              
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div> 
+                                        <div class="col-6">
+                                            <label>Relevé de note de Bac</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Relevé de note
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Relevé de note</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body">
+                                                           {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNoteBac()) }}" width="100%" height="600px"></iframe>                                               
+
+                                                            {% endif %}                                                 
+                                                                                                              
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div>                                              
+                                    </div>
+                                        <div class=" row form-group" style="margin-top: 80px;">
+                                        <div class="col-6">
+                                            <label>Attestation de Reussite </label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Attestation
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Attestation de Reussite </h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body">  
+                                                           {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNote6eme()) }}" width="100%" height="600px"></iframe>                                               
+
+                                                            {% endif %}                                              
+                                                                                                              
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div> 
+                                        <div class="col-6">
+                                            <label>Carte Nationale d'Identité</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Carte Nationale
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Carte Nationale d'Identité</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body">
+                                                           {% if etudiant is not null %}
+                                                             <iframe src="{{ asset(etudiant.getNoteBac()) }}" width="100%" height="600px"></iframe>                                               
+                                                            {% endif %}                                                 
+                                                                                                             
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div>    
+                                        <div class="col-12" style="margin-top: 80px;">
+                                            <label>Attestation de Reussite 1er année</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Attestation de Reussite 1er année
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Attestation de Reussite 1er année</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body"> 
+                                                           {% if etudiant is not null %}
+                                                             <iframe src="{{ asset(etudiant.getNoteBac()) }}" width="100%" height="600px"></iframe>                                               
+                                                            {% endif %}                                                
+                                                                                                              
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div>                                            
+                                    </div>
+                                        
+                                        <div class="row" style="margin-top: 80px;">
+                                          <div class="col-6 form-group">
+                                            <label>Note mathématique</label>
+                                            {% if etudiant is not null %}
+                                                <input type="text" class="form-control {% if etudiant.getNoteMath() < 12 %}is-invalid{% endif %}" value="{{ etudiant.getNoteMath() }}">
+                                               {% if etudiant.getNoteMath() < 12 %}
+                                                   <div class="invalid-feedback">note de mathématique est invalide</div>
+                                               {% endif %}
+
+                                            {% endif %} 
+                                             </div>
+                                        <div class="col-6 form-group">
+                                            <label>Note Françaie</label>
+                                               {% if etudiant is not null %}
+                                               <input type="text" class="form-control {% if etudiant.getNoteFranc() < 12 %}is-invalid{% endif %}" value="{{ etudiant.getNoteFranc() }}">
+                                             {% if etudiant.getNoteFranc() < 12 %}
+                                                 <div class="invalid-feedback">Note française est invalide</div>
+                                             {% endif %}
+
+                                            {% endif %} 
+                                        </div>
+                                        </div>
+                                        <div style="margin-top: 80px;">
+                                        <button type="submit" class="btn btn-primary">Valider</button>
+                                        <button type="submit" class="btn btn-outline-secondary">Liste d'attente</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!------------------------- fin 2eme annee ------------------>
+                                <!------------------------- 3eme annee ------------------>
+                                <div id="3eme">
+                                 <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">3eme Année</h3>
+                                        <div class="card-options ">
+                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                                        </div>
+                                    </div>
+                                 <div class="card-body">
+                                    <div class=" row form-group">
+                                        <div class="col-6">
+                                            <label>Relevé de note de 6éme</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Relevé de note
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Relevé de note</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body"> 
+                                                            {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNote6eme()) }}" width="100%" height="600px"></iframe>
+                                                            {% endif %}                                             
+                                                                                                              
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div> 
+                                        <div class="col-6">
+                                            <label>Relevé de note de Bac</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Relevé de note
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Relevé de note</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body"> 
+                                                           {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNoteBac()) }}" width="100%" height="600px"></iframe> 
+                                                            {% endif %}                                              
+                                                                                                             
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div>                                              
+                                    </div>
+                                        <div class=" row form-group" style="margin-top: 80px;">
+                                        <div class="col-6">
+                                            <label>Attestation de Reussite </label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Attestation
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Attestation de Reussite </h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body"> 
+                                                           {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNote6eme()) }}" width="100%" height="600px"></iframe> 
+                                                            {% endif %}                                                
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div> 
+                                        <div class="col-6">
+                                            <label>Carte Nationale d'Identité</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Carte Nationale
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Carte Nationale d'Identité</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body"> 
+                                                           {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNoteBac()) }}" width="100%" height="600px"></iframe> 
+                                                            {% endif %}                                              
+                                                                                                             
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div>
+                                                                                     
+                                    </div>
+                                        <div class="col-12" style="margin-top: 80px;">
+                                            <label>Diplome de bac+2</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Diplome de bac+2
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Diplome de bac+2</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body">
+                                                           {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNoteBac()) }}" width="100%" height="600px"></iframe> 
+                                                            {% endif %}                                                
+                                                                                                              
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div> 
+                                         
+                                        
+                                        <div style="margin-top: 80px;">
+                                        <button type="submit" class="btn btn-primary">Valider</button>
+                                        <button type="submit" class="btn btn-outline-secondary">Liste d'attente</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!------------------------- fin 3eme annee ------------------>
+                                <!------------------------- 4eme annee ------------------>
+                                
+                               <div id="4eme">
+                                 <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">4eme Année</h3>
+                                        <div class="card-options ">
+                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                                        </div>
+                                      </div>
+                                    <div class="card-body">
+                                    <div class=" row form-group">
+                                        <div class="col-6">
+                                            <label>Relevé de note de 6éme</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Relevé de note
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Relevé de note</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body"> 
+                                                           {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNote6eme()) }}" width="100%" height="600px"></iframe>                                               
+                                                            {% endif %}                                               
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div> 
+                                        <div class="col-6">
+                                            <label>Relevé de note de Bac</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Relevé de note
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Relevé de note</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body">
+                                                           {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNote6eme()) }}" width="100%" height="600px"></iframe>                                               
+                                                            {% endif %}                                                
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div>                                              
+                                    </div>
+                                        <div class=" row form-group" style="margin-top: 80px;">
+                                        <div class="col-6">
+                                            <label>Attestation de Reussite </label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Attestation
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Attestation de Reussite </h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body"> 
+                                                           {% if etudiant is not null %}
+                                                            <iframe src="{{ asset(etudiant.getNote6eme()) }}" width="100%" height="600px"></iframe>                                               
+                                                            {% endif %}                                                
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div> 
+                                        <div class="col-6">
+                                            <label>Carte Nationale d'Identité</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Carte Nationale
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Carte Nationale d'Identité</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body">
+                                                           {% if etudiant is not null %}
+                                                               <iframe src="{{ asset(etudiant.getNoteBac()) }}" width="100%" height="600px"></iframe>                                               
+                                                            {% endif %}                                                 
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div>                                              
+                                    </div>
+                                        <div class="col-12" style="margin-top: 80px;">
+                                            <label>Diplome de bac+3</label>
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+                                                 <i class="bi bi-file-pdf"></i> Diplome de bac+3
+                                            </button>
+                                                <!-- Modal -->
+                                               <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">                                               
+                                                   <div class="modal-dialog modal-lg" role="document">                                               
+                                                       <div class="modal-content">                                               
+                                                           <div class="modal-header">                                               
+                                                               <h5 class="modal-title" id="pdfModalLabel">Diplome de bac+3</h5>                                               
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">                                               
+                                                                   <span aria-hidden="true">&times;</span>                                               
+                                                               </button>                                               
+                                                           </div>                                               
+                                                           <div class="modal-body"> 
+                                                           {% if etudiant is not null %}
+                                                               <iframe src="{{ asset(etudiant.getNoteBac()) }}" width="100%" height="600px"></iframe>                                               
+                                                            {% endif %}                                                
+                                                           </div>                                               
+                                                           <div class="modal-footer">                                               
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                               
+                                                           </div>                                               
+                                                       </div>                                               
+                                                   </div>                                               
+                                               </div> 
+                                        </div> 
+                                        
+                                        
+                                        <div style="margin-top: 80px;">
+                                        <button type="submit" class="btn btn-primary">Valider</button>
+                                        <button type="submit" class="btn btn-outline-secondary">Liste d'attente</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!------------------------- fin 4eme annee ------------------>
+                              
+                            </div>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Récupérer le niveau de l'étudiant
+    var niveauEtudiant = "{{ etudiant is not null ? etudiant.getNiveau() : '' }}";
+
+    // Cacher tous les divs sauf celui correspondant au niveau de l'étudiant
+    var niveaux = ["1er", "2eme", "3eme", "4eme"];
+
+    niveaux.forEach(function (niveau) {
+        var divNiveau = document.getElementById(niveau);
+        if (niveau === niveauEtudiant) {
+            divNiveau.style.display = "block"; // Afficher le div correspondant
+            console.log("Niveau de l'étudiant : ", niveauEtudiant);
+        } else {
+            divNiveau.style.display = "none"; // Cacher les autres divs
+            console.log("Niveau de l'étudiant : ", niveauEtudiant);
+        }
+    });
+});
+
+</script>
+
+        
+{% endblock %}
