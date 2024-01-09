@@ -49,4 +49,13 @@ class ResponsableController extends AbstractController
         return $this->render('responsable/dossierAtraiter.html.twig', ['totalStudentsWithEtatZero' => $totalStudentsWithEtatZero, 'etudiants' => $etudiants]);
     }
 
+    #[Route('/detail_etudiant/{id}', name: 'detailEtudiant_responsable')]
+    public function DetailEtudiant(ListDattenteRepository $listDattenteRepository, $id): Response
+    {
+        $totalStudentsWithEtatZero = $listDattenteRepository->countStudentsWithEtatZero();
+        $etudiant = $listDattenteRepository->find($id);
+
+        return $this->render('responsable/etudiant.html.twig', ['totalStudentsWithEtatZero' => $totalStudentsWithEtatZero, 'etudiant' => $etudiant]);
+    }
+
 }
