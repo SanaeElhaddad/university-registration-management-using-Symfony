@@ -1,0 +1,166 @@
+{% extends 'responsable/base.html.twig' %}
+
+{% block title %}Dashboard Responsable{% endblock %}
+
+{% block customCard %} {{ totalStudentsWithEtatZero }} {% endblock %}
+
+{% block body %}
+
+    <div class="col-xl-12">
+        <div class="card">
+
+            <div class="card-header">
+                <h3 class="card-title">Univesité Privée de Fès</h3>
+                <div class="card-options">
+                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                    <a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                </div>
+            </div>  
+            
+            <div class="card-body">
+                
+
+                {# Nombre des étudiants par faculté #}
+                <div style="width:800px;">
+                    <canvas id="myChart"></canvas>
+                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const ctx = document.getElementById('myChart');
+
+                        // Fonction pour remplacer les noms par les abréviations
+                        function replaceNames(names) {
+                            return names.map(function(name) {
+                                switch(name) {
+                                    case 'Faculté des Sciences de lIngénieur':
+                                        return 'FSI';
+                                    case 'Faculté de Médecine Dentaire':
+                                        return 'FMD';
+                                    case 'Faculté des Sciences paramédicales et Techniques de Santé':
+                                        return 'FSPTS';
+                                    case 'École Supérieure des Métiers de lArchitecture et du Bâtiment':
+                                        return 'ESMAB';
+                                    case 'Fès Business School':
+                                        return 'FBS';
+                                    default:
+                                        return name;
+                                }
+                            });
+                        }
+
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: replaceNames({{ data.faculte | json_encode | raw }}),
+                                datasets: [{
+                                    label: 'Nombre des étudiants par faculté',
+                                    data: {{ data.etudiants | json_encode | raw }},
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
+                
+                {# Pourcentage d'étudiants par faculté #}
+                <div style="width:400px;height:400px;margin-left: 290px;margin-top: 25px;">
+                    <canvas id="mySecondChart"></canvas>
+                </div>
+                <script>
+
+                    const data = {
+                        labels: [
+                                    {% for resultat in resultats %}
+                                        '{{ resultat.nom_faculte }}'{% if not loop.last %},{% endif %}
+                                    {% endfor %}
+                                ],
+                        datasets: [{
+                            label: 'Pourcentage d\'étudiants par faculté',
+                            data: [
+                                        {% for resultat in resultats %}
+                                            {{ resultat.pourcentage_etudiants_faculte }}{% if not loop.last %},{% endif %}
+                                        {% endfor %}
+                                    ],
+                            backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)',
+                                'rgb(255, 255, 90)',
+                                'rgb(255, 180, 45)',
+                            ],
+                            hoverOffset: 4
+                        }]
+                    };
+
+                    const config = {
+                        type: 'doughnut',
+                        data: data,
+                    };
+
+                    var mySecondChart = new Chart(
+                        document.getElementById('mySecondChart'),
+                        config
+                    );
+                </script>
+            
+            </div>
+
+            {# <div class="card-footer">
+                <div class="row">
+
+                    <div class="col-xl-3 col-md-6 mb-2">
+                        <div class="clearfix">
+                            <div class="float-left"><strong>Fees</strong></div>
+                            <div class="float-right"><small class="text-muted">35%</small></div>
+                        </div>
+                        <div class="progress progress-xs">
+                            <div class="progress-bar bg-indigo" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <span class="text-uppercase font-10">Compared to last year</span>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-2">
+                        <div class="clearfix">
+                            <div class="float-left"><strong>Donation</strong></div>
+                            <div class="float-right"><small class="text-muted">61%</small></div>
+                        </div>
+                        <div class="progress progress-xs">
+                            <div class="progress-bar bg-yellow" role="progressbar" style="width: 61%" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <span class="text-uppercase font-10">Compared to last year</span>
+                    </div> 
+                    <div class="col-xl-3 col-md-6 mb-2">
+                        <div class="clearfix">
+                            <div class="float-left"><strong>Income</strong></div>
+                            <div class="float-right"><small class="text-muted">87%</small></div>
+                        </div>
+                        <div class="progress progress-xs">
+                            <div class="progress-bar bg-green" role="progressbar" style="width: 87%" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <span class="text-uppercase font-10">Compared to last year</span>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-2">
+                        <div class="clearfix">
+                            <div class="float-left"><strong>Expense</strong></div>
+                            <div class="float-right"><small class="text-muted">42%</small></div>
+                        </div>
+                        <div class="progress progress-xs">
+                            <div class="progress-bar bg-pink" role="progressbar" style="width: 42%" aria-valuenow="42" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <span class="text-uppercase font-10">Compared to last year</span>
+                    </div>
+
+                </div>               
+            </div> #}
+                                                
+        </div>
+    </div>
+
+{% endblock %}

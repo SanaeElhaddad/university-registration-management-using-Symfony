@@ -21,6 +21,47 @@ class FaculteRepository extends ServiceEntityRepository
         parent::__construct($registry, Faculte::class);
     }
 
+    /**
+     * Retourne le nombre d'étudiants par faculté.
+     *
+     * @return array
+     */
+    public function countStudentsByFaculty(): array
+    {
+        return $this->createQueryBuilder('f')
+            ->select('f.nom AS nom_faculte, COUNT(e.id) AS nombre_etudiants')
+            ->join('f.filieres', 'fi')
+            ->join('fi.etudiants', 'e')
+            ->groupBy('f.id, f.nom')
+            ->orderBy('f.id')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Retourne le pourcentage d'étudiants par faculté.
+     *
+     * @return array
+     */
+    public function getPercentageStudentsByFaculty(): array
+    {
+        $subquery = $this->createQueryBuilder('e2')
+            ->select('COUNT(e2.id) AS total_etudiants')
+            ->getQuery()
+            ->getSingleResult();
+
+        return $this->createQueryBuilder('f')
+            ->select('f.nom AS nom_faculte, (COUNT(e.id) * 100.0 / :totalEtudiants) AS pourcentage_etudiants_faculte')
+            ->join('f.filieres', 'fi')
+            ->join('fi.etudiants', 'e')
+            ->setParameter('totalEtudiants', $subquery['total_etudiants'])
+            ->groupBy('f.id')
+            ->orderBy('f.id')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Faculte[] Returns an array of Faculte objects
 //     */
