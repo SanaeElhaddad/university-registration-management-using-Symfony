@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\EtudiantRepository;
 use App\Repository\FaculteRepository;
+use App\Repository\ListDattenteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,9 +20,11 @@ class ResponsableController extends AbstractController
         ]);
     }
     #[Route('/dashboard', name: 'dahsboard_responsable')]
-    public function dashboard_responsable(FaculteRepository $faculteRepository): Response
+    public function dashboard_responsable(FaculteRepository $faculteRepository, ListDattenteRepository $listDattenteRepository): Response
     {
         
+        $totalStudentsWithEtatZero = $listDattenteRepository->countStudentsWithEtatZero();
+
         // Appel de la fonction countStudentsByFaculty du FaculteRepository
         $resultats = $faculteRepository->countStudentsByFaculty();
 
@@ -33,6 +37,16 @@ class ResponsableController extends AbstractController
 
         $resultats2 = $faculteRepository->getPercentageStudentsByFaculty();
 
-        return $this->render('responsable/index.html.twig', ['data' => $data,'resultats' => $resultats2]);
+        return $this->render('responsable/index.html.twig', ['data' => $data,'resultats' => $resultats2, 'totalStudentsWithEtatZero' => $totalStudentsWithEtatZero]);
     }
+
+    #[Route('/dossier_etudiants', name: 'dossierAvalider_responsable')]
+    public function dossierAvalider_responsable(ListDattenteRepository $listDattenteRepository): Response
+    {
+        $totalStudentsWithEtatZero = $listDattenteRepository->countStudentsWithEtatZero();
+        $etudiants = $listDattenteRepository->findAll(['status' => 0]);
+
+        return $this->render('responsable/dossierAtraiter.html.twig', ['totalStudentsWithEtatZero' => $totalStudentsWithEtatZero, 'etudiants' => $etudiants]);
+    }
+
 }

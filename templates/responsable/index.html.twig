@@ -2,6 +2,8 @@
 
 {% block title %}Dashboard Responsable{% endblock %}
 
+{% block customCard %} {{ totalStudentsWithEtatZero }} {% endblock %}
+
 {% block body %}
 
     <div class="col-xl-12">
@@ -17,7 +19,7 @@
             </div>  
             
             <div class="card-body">
-
+                
 
                 {# Nombre des étudiants par faculté #}
                 <div style="width:800px;">

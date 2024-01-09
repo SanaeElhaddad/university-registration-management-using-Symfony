@@ -21,6 +21,22 @@ class ListDattenteRepository extends ServiceEntityRepository
         parent::__construct($registry, ListDattente::class);
     }
 
+    /**
+     * Calculate the total number of students with etat=0.
+     *
+     * @return int
+     */
+    public function countStudentsWithEtatZero(): int
+    {
+        return $this->createQueryBuilder('e')
+            ->select('COUNT(e.id)')
+            ->where('e.status = :status')
+            ->setParameter('status', 0)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+
 //    /**
 //     * @return ListDattente[] Returns an array of ListDattente objects
 //     */
