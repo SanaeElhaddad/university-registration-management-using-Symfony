@@ -6,15 +6,13 @@
 
 {% block body %}
 
-    <div class="section-body mt-4">
-            <div class="container-fluid">
-                    <div class="tab-pane">
-                        <div class="row">
+                    {# <div class="tab-pane">
+                        <div class="row"> #}
                             <div class="col-xl-4 col-md-12">
                                 <div class="card">
                                     <div class="card-body w_user">
                                         <div class="user_avtar">
-                                            <img class="rounded-circle" src="../assets/images/sm/girl.png" alt="">
+                                            <img class="rounded-circle" src="{{asset('assets/images/sm/avatar1.jpg')}}" alt="">
                                         </div>
                                         <div class="wid-u-info">
                                         {% if etudiant is not null %}
@@ -244,8 +242,8 @@
                                         </div>
                                         </div>
                                         <div style="margin-top: 80px;">
-                                        <a href="#" class="btn btn-primary">Valider</a>
-                                        <a href="#" class="btn btn-outline-secondary">Liste d'attente</a>
+                                        <a href="{{path('ajouterListePrincipale', {cin:etudiant.getCin()})}}" class="btn btn-primary">Valider</a>
+                                        {# <a href="#" class="btn btn-outline-secondary">Liste d'attente</a> #}
                                         </div>
                                     </div>
                                 </div>
@@ -766,12 +764,9 @@
                               
                             </div>
                             
-                        </div>
-                    </div>
+                        {# </div>
+                    </div> #}
                 
-            </div>
-        </div>
-
         <script>
             document.addEventListener("DOMContentLoaded", function () {
             // Récupérer le niveau de l'étudiant

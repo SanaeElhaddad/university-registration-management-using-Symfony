@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Repository\EtudiantRepository;
 use App\Repository\FaculteRepository;
 use App\Repository\ListDattenteRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -44,9 +46,9 @@ class ResponsableController extends AbstractController
     public function dossierAvalider_responsable(ListDattenteRepository $listDattenteRepository): Response
     {
         $totalStudentsWithEtatZero = $listDattenteRepository->countStudentsWithEtatZero();
-        $etudiants = $listDattenteRepository->findAll(['status' => 0]);
+        $etudiantNonValider = $listDattenteRepository->findBy(['status' => 0]);
 
-        return $this->render('responsable/dossierAtraiter.html.twig', ['totalStudentsWithEtatZero' => $totalStudentsWithEtatZero, 'etudiants' => $etudiants]);
+        return $this->render('responsable/dossierAtraiter.html.twig', ['totalStudentsWithEtatZero' => $totalStudentsWithEtatZero, 'etudiants' => $etudiantNonValider]);
     }
 
     #[Route('/detail_etudiant/{id}', name: 'detailEtudiant_responsable')]
@@ -58,4 +60,36 @@ class ResponsableController extends AbstractController
         return $this->render('responsable/etudiant.html.twig', ['totalStudentsWithEtatZero' => $totalStudentsWithEtatZero, 'etudiant' => $etudiant]);
     }
 
+    #[Route('/ajouter_liste_principale/{cin}', name: 'ajouterListePrincipale')]
+    public function ajouterListePrincipale($cin, EtudiantRepository $etudiantRepository, EntityManagerInterface $entityManager, ListDattenteRepository $listDattenteRepository): Response
+    {
+        // Récupérer l'étudiant par son CIN
+        $etudiant = $etudiantRepository->findOneBy(['cin' => $cin]);
+        $etudiantDattente = $listDattenteRepository->findOneBy(['cin' => $cin]);
+
+        if ($etudiant) {
+            $etudiant->setStatus(true);
+
+            $entityManager->persist($etudiant);
+            $entityManager->flush();
+
+        }
+
+        if ($etudiantDattente) {
+            $etudiantDattente->setStatus(true);
+
+            $entityManager->persist($etudiant);
+            $entityManager->flush();
+
+        }
+
+        // Redirection vers l'URL souhaitée
+        return new RedirectResponse($this->generateUrl('dossierAvalider_responsable'));
+
+        // $totalStudentsWithEtatZero = $listDattenteRepository->countStudentsWithEtatZero();
+        // $etudiants = $listDattenteRepository->findAll(['status' => 0]);
+
+        // return $this->render('responsable/dossierAtraiter.html.twig', ['totalStudentsWithEtatZero' => $totalStudentsWithEtatZero, 'etudiants' => $etudiants]);
+    }
+    
 }

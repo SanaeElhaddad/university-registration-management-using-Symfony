@@ -35,13 +35,14 @@
                                                 <td>{{ etudiant.prenom }}</td>
                                                 <td>{{ etudiant.filiere.nom }}</td>
                                                 <td>{{ etudiant.niveau }}</td>
-                                                <td>
+                                                <td><button class="btn btn-danger">Non Validé</button></td>
+                                                {# <td>
                                                   {% if not etudiant.status %}
                                                   <button class="btn btn-danger">Non Validé</button>
                                                   {% else %}
                                                   <button class="btn btn-success">Validé</button>
                                                   {% endif %}
-                                                </td>
+                                                </td> #}
                                                 <td><span class="tag tag-success"></span></td>
                                                 <td>
                                                 <a href="{{path('detailEtudiant_responsable', {id:etudiant.id})}}" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye"></i></a>
