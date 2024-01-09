@@ -60,12 +60,10 @@ class EtudiantType extends AbstractType
             ->add('niveau',ChoiceType::class,[
                 'choices' => [
                     ''=>'',
-                    '1 ére Année'=>'1 ére Année',
-                    '2 éme Année'=>'2 éme Année',
-                    '3 éme Année'=>'2 éme Année',
-                    '4 éme Année'=>'2 éme Année',
-                    '5 éme Année'=>'5 éme Année',
-
+                    '1 ére Année'=>'1er',
+                    '2 éme Année'=>'2eme',
+                    '3 éme Année'=>'3eme',
+                    '4 éme Année'=>'4eme',
                 ],
                
                 ])
