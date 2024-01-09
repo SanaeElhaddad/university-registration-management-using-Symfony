@@ -32,4 +32,44 @@ class SecretaireController extends AbstractController
         $etudiant = $etudiantRepository->find($id);
         return $this->render('secretaire/Etudiant.html.twig', ['etudiant' => $etudiant]);
     }
+    #[Route('/etudiants/FSI', name: 'etudiants_FSI')]
+    public function etudiantsSciencesIngenieur(EtudiantRepository $etudiantRepository): Response
+    {
+         $etudiants = $etudiantRepository->findEtudiantsByFaculte('FSI');
+        return $this->render('secretaire/FSI.html.twig', [
+            'etudiants' => $etudiants,
+        ]);
+    }
+    #[Route('/etudiants/FBS', name: 'etudiants_FBS')]
+    public function etudiantsFBS(EtudiantRepository $etudiantRepository): Response
+    {
+         $etudiants = $etudiantRepository->findEtudiantsByFaculteFBS('FBS');
+        return $this->render('secretaire/FBS.html.twig', [
+            'etudiants' => $etudiants,
+        ]);
+    }
+    #[Route('/etudiants/FMD', name: 'etudiants_FMD')]
+    public function etudiantsFMD(EtudiantRepository $etudiantRepository): Response
+    {
+         $etudiants = $etudiantRepository->findEtudiantsByFaculteFMD('FMD');
+        return $this->render('secretaire/FMD.html.twig', [
+            'etudiants' => $etudiants,
+        ]);
+    }
+    #[Route('/etudiants/FSPTS', name: 'etudiants_FSPTS')]
+    public function etudiantsFSPTS(EtudiantRepository $etudiantRepository): Response
+    {
+         $etudiants = $etudiantRepository->findEtudiantsByFaculteFSPTS('FSPTS');
+        return $this->render('secretaire/FSPTS.html.twig', [
+            'etudiants' => $etudiants,
+        ]);
+    }
+    #[Route('/etudiants/ESMAB', name: 'etudiants_ESMAB')]
+    public function etudiantsESMAB(EtudiantRepository $etudiantRepository): Response
+    {
+         $etudiants = $etudiantRepository->findEtudiantsByFaculteESMAB('ESMAB');
+        return $this->render('secretaire/ESMAB.html.twig', [
+            'etudiants' => $etudiants,
+        ]);
+    }
 }

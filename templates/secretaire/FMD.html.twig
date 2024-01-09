@@ -1,0 +1,74 @@
+{% extends 'secretaire/base.html.twig' %}
+
+{% block body %}
+
+
+<!-- Start project content area -->
+  <div class="section-body">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center ">
+                    <div class="header-action">
+                        <ol class="breadcrumb page-breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">UPF</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">FSI</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="section-body mt-4">
+            <div class="container-fluid">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="Staff-all">
+                        <div class="card">
+                            <div class="table-responsive">
+                               <!-- secretaire/etudiants.html.twig -->
+
+                                <table class="table table-hover table-vcenter text-nowrap table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Cin</th>
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th>Niveau</th>
+                                            <th>Inscription</th>
+                                            <th></th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for etudiant in etudiants %}
+                                            <tr>
+                                                <td class="w60">
+                                                    <img class="avatar" src="../assets/images/xs/avatar3.jpg" alt="">
+                                                </td>
+                                                <td>{{ etudiant.cin }}</td>
+                                                <td>{{ etudiant.nom }}</td>
+                                                <td>{{ etudiant.prenom }}</td>
+                                                <td>{{ etudiant.niveau }}</td>
+                                                <td>
+                                                  {% if not etudiant.status %}
+                                                  <button class="btn btn-danger">Non Validé</button>
+                                                  {% else %}
+                                                  <button class="btn btn-success">Validé</button>
+                                                  {% endif %}
+                                                </td>
+                                                <td><span class="tag tag-success"></span></td>
+                                                <td>
+                                                <a href="{{path('view_etudiant', {id:etudiant.id})}}" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye"></i></button>
+                                                    <button type="button" class="btn btn-icon btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
+                                                    <button type="button" class="btn btn-icon btn-sm js-sweetalert" title="Delete" data-type="confirm"><i class="fa fa-trash-o text-danger"></i></button>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

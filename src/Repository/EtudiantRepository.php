@@ -45,4 +45,66 @@ class EtudiantRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findEtudiantsByFaculte($faculteName)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.filiere', 'f')
+            ->leftJoin('f.faculte', 'fa')
+            ->where('fa.nom = :faculteName')
+            ->setParameter('faculteName', $faculteName)
+            ->getQuery()
+            ->getResult();
+    }
+    public function findEtudiantsByFaculteFBS($faculteName)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.filiere', 'f')
+            ->leftJoin('f.faculte', 'fa')
+            ->where('fa.nom = :faculteName')
+            ->setParameter('faculteName', $faculteName)
+            ->getQuery()
+            ->getResult();
+    }
+    public function findEtudiantsByFaculteFMD($faculteName)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.filiere', 'f')
+            ->leftJoin('f.faculte', 'fa')
+            ->where('fa.nom = :faculteName')
+            ->setParameter('faculteName', $faculteName)
+            ->getQuery()
+            ->getResult();
+    }
+    public function findEtudiantsByFaculteFSPTS($faculteName)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.filiere', 'f')
+            ->leftJoin('f.faculte', 'fa')
+            ->where('fa.nom = :faculteName')
+            ->setParameter('faculteName', $faculteName)
+            ->getQuery()
+            ->getResult();
+    }
+    public function findEtudiantsByFaculteESMAB($faculteName)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.filiere', 'f')
+            ->leftJoin('f.faculte', 'fa')
+            ->where('fa.nom = :faculteName')
+            ->setParameter('faculteName', $faculteName)
+            ->getQuery()
+            ->getResult();
+    }
+    public function findEtudiantsByFaculteAndAnnee($faculteName, $niveau)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.filiere', 'f')
+            ->leftJoin('f.faculte', 'fa')
+            ->where('fa.nom = :faculteName')
+            ->andWhere('e.niveau = :niveau') // Utilisez :niveau au lieu de :annee
+            ->setParameter('faculteName', $faculteName)
+            ->setParameter('niveau', $niveau) // Utilisez le même nom ici
+            ->getQuery()
+            ->getResult();
+    }
 }
