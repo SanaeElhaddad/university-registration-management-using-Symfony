@@ -51,7 +51,7 @@ class LoginController extends AbstractController
                 $token = new UsernamePasswordToken($responsable, $responsable->getPassword(), $responsable->getRoles());
                 $this->tokenStorage->setToken($token);
 
-                return $this->redirectToRoute('home_responsable');
+                return $this->redirectToRoute('dahsboard_responsable');
             }
             // If Admin authentication fails, try to find a Responsable
             $secretaire = $entityManager->getRepository(Secretaire::class)->findOneBy(['email' => $email]);
@@ -60,7 +60,7 @@ class LoginController extends AbstractController
                 $token = new UsernamePasswordToken($secretaire, $secretaire->getPassword(), $secretaire->getRoles());
                 $this->tokenStorage->setToken($token);
 
-                return $this->redirectToRoute('home_secretaire');
+                return $this->redirectToRoute('etudiants');
             } else {
                 $this->addFlash('error', 'Email ou mot de passe incorrect.');
             }
